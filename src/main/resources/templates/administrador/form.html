@@ -1,12 +1,10 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
-<head th:replace="layout :: frgHead">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-</head>
-<head th:replace="layout :: frgMenuSup">
-</head>
-<body>
- <div class="container" align="center">
+<head th:replace="layout :: frgCSS"></head>
+<header th:replace="layout :: frgheader"></header>
+<body>    
+<div class="container" align="center">
  <span>Formulario</span>
 <h4 th:text="${title}"></h4>
 <br>
@@ -114,7 +112,8 @@
 </form>
 </div>
 </div>
- 
+
 </body>
-<footer th:replace="layout :: frgFooter"></footer>
+<div th:replace="layout :: frgFooter"></div>
+<div th:replace="layout :: frgScripts"></div>
 </html>

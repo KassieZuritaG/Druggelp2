@@ -1,9 +1,52 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/> 
 <head th:replace="layout :: frgCSS"></head>
 <header th:replace="layout :: frgheader"></header>
 <body>    
-
+ <!-- Hero Area End-->
+        <!--================login_part Area =================-->
+        <section class="login_part section_padding ">
+            <div class="container">
+                <div class="row align-items-center">
+                    <div class="col-lg-6 col-md-6">
+                        <div class="login_part_text text-center">
+                            <div class="login_part_text_iner">
+                                <h2>¿Eres nuevo en Druggelp?</h2>
+                                <p>Druggelp es una experiencia única que brinda a todos los clientes 
+                                la posibilidad de reservar medicamentos sin la necesidad de ir
+                                a una farmacia.</p>
+                                <a th:href="@{/usuario/create}" class="btn_3">Crear una Cuenta</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-md-6">
+                        <div class="login_part_form">
+                            <div class="login_part_form_iner">
+                                <h3>¡Bienvenid@ de nuevo! <br>
+                                    Inicia Sesión</h3>
+                                    
+                                <form class="row contact_form" th:action="@{/login}" method="post" novalidate="novalidate">
+                                    <div class="col-md-12 form-group p_star">
+                                        <input type="text" class="form-control" id="username" name="username" placeholder="Usuario">
+                                    </div>
+                                    <div class="col-md-12 form-group p_star">
+                                        <input type="password" class="form-control" id="password" name="password" placeholder="Contraseña">
+                                    </div>
+                                    <br><br><br><br><br><br>
+                                    <div class="col-md-12 form-group">
+                                        <button class="btn btn-sm academy-btn btn-3" type="submit"><i class="fas fa-sign-in-alt"></i> &nbsp;Ingresar</button>
+										<button class="btn btn-sm academy-btn btn-2 ml-2" type="reset"><i class="fas fa-times"></i> &nbsp;Cancelar</button>
+                                    </div>
+                                    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+ 
 </body>
 <div th:replace="layout :: frgFooter"></div>
 <div th:replace="layout :: frgScripts"></div>
