@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="layout :: frgHead">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<head th:replace="layout :: frgMenuSup">
+</head>
+<body>
+
+<div class="top-popular-courses-area mt-100 section-padding-100-70">
+		<section class="contact-area mt-100">
+			<div class="container">
+				<div class="row">
+					<div class="col-12">
+						<div class="contact-content">
+							<div class="row">
+								<div class="col-12">
+									<div class="row">
+										<div class=col-10>
+											<span>Contenido</span>
+											<h4 th:text="${title}"></h4>
+										</div>
+										<div class=col-2>
+											<img th:src="@{/photos/} + ${administrador.imagen}" width="80"
+												height="80" />
+										</div>
+									</div>
+
+<!-- ---------------------------------------------------------------------------------------------------- -->
+
+									<!-- ##### Tabs ##### -->
+									<div class="col-12">
+										<div class="academy-tabs-content">
+											<ul class="nav nav-tabs" id="myTab" role="tablist">
+												<li class="nav-item"><a class="nav-link active"
+													id="tab--1" data-toggle="tab" href="#tab1" role="tab"
+													aria-controls="tab1" aria-selected="false">Datos
+														generales</a></li>
+											</ul>
+
+											<div class="tab-content mb-100" id="myTabContent">
+												<div class="tab-pane fade show active" id="tab1"
+													role="tabpanel" aria-labelledby="tab--1">
+													<div class="academy-tab-content">
+														<!-- Tab Text -->
+														<div class="academy-tab-text">
+															<div class="contact-form-area wow fadeInUp"
+																data-wow-delay="500ms">
+																<form th:object="${adminstrador}" method="post">
+																
+																<div class="row d-flex align-items-center">
+																  	<div class="col-1">											
+																		<i class="fas fa-calendar-alt fa-2x"></i>													
+																	</div>
+																	<div class="col-5">													
+																		<label for="validationDefault01">Nombres:</label>
+																     	<input readonly type="text" class="form-control" th:field="*{nombres}" />										
+																	</div>											
+																	<div class="col-1">											
+																		<i class="fas fa-map-marker-alt fa-2x"></i>													
+																	</div>
+																		<div class="col-5">													
+																			<label for="validationDefault01">Apellidos:</label>
+																      		<input readonly type="text" class="form-control" th:field="*{apellidos}"/>										
+																      	</div>
+																  </div>
+																  
+																  <div class="row d-flex align-items-center">
+																  	<div class="col-1">											
+																		<i class="fas fa-calendar-alt fa-2x"></i>													
+																	</div>
+																	<div class="col-5">													
+																		<label for="validationDefault01">Cédula:</label>
+																      	<input readonly type="text" class="form-control" th:field="*{cedula}" />										
+																    </div>											
+																	<div class="col-1">											
+																		<i class="fas fa-map-marker-alt fa-2x"></i>													
+																	</div>
+																	<div class="col-5">													
+																		<label for="validationDefault01">Lugar de Nacimiento:</label>
+																      	<input readonly type="text" class="form-control" th:field="*{lugarNacimiento}"/>										
+																     </div>
+																  </div>
+																  
+																  <div class="row d-flex align-items-center">
+																  	<div class="col-1">											
+																		<i class="fas fa-calendar-alt fa-2x"></i>													
+																	</div>
+																	<div class="col-5">													
+																		<label for="validationDefault01">Fecha Nacimiento:</label>
+																		<input readonly type="date" class="form-control" th:field="*{fechaNacimiento}" />
+																	</div>											
+																	<div class="col-1">											
+																		<i class="fas fa-map-marker-alt fa-2x"></i>													
+																	</div>
+																	<div class="col-5">	
+																		<label for="validationDefault01">Sexo:</label>														
+																		<input readonly type="text" class="form-control" th:value="${alumno.sexoDesc()}" />
+																	</div>
+																  </div>
+																  
+																	<div class="row d-flex align-items-center">
+																		<div class="col-1">											
+																			<i class="fas fa-phone fa-2x"></i>													
+																		</div>
+																		<div class="col-5">	
+																			<label for="validationDefault01">Télefono:</label>												
+																			<input readonly type="text" class="form-control" th:field="*{telefono}" />
+																		</div>											
+																		<div class="col-1">											
+																			<i class="fas fa-at fa-2x"></i>													
+																		</div>
+																		<div class="col-5">
+																			<label for="validationDefault01">Email:</label>													
+																			<input readonly type="text" class="form-control" th:field="*{email}" />
+																		</div>
+																	</div>
+																
+																<input type="hidden" th:field="*{idadministrador}" />
+																
+																</form>
+															</div>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+									
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+	</div>
+
+</body>
+</html>
