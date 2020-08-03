@@ -22,6 +22,9 @@ private static final long serialVersionUID = 1L;
 	@Column(name = "pk_administrador")
 	private Integer idadministrador;
 
+	@Column(name = "imagen")
+	private String imagen;
+	
 	public Administrador() {
 		super();
 	}
@@ -39,6 +42,14 @@ private static final long serialVersionUID = 1L;
 		this.idadministrador = idadministrador;
 	}
 	
+	public String getImagen() {
+		return imagen;
+	}
+
+	public void setImagen(String imagen) {
+		this.imagen = imagen;
+	}
+
 	@Override
 	public String toString() {
 		return super.toString();

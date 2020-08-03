@@ -19,7 +19,7 @@ import javax.persistence.TemporalType;
 import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
-@Table(name="detallesreserva")
+@Table(name="detalles")
 public class DetalleReserva implements Serializable{
 
 	private static final long serialVersionUID = 1L;

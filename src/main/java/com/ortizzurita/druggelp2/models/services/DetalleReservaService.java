@@ -18,8 +18,7 @@ public class DetalleReservaService implements IDetalleReservaService{
 	@Override
 	@Transactional
 	public void save(DetalleReserva det) {
-		dao.save(det);
-		
+		dao.save(det);		
 	}
 
 	@Override
