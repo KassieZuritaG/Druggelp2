@@ -49,6 +49,9 @@ public abstract class Persona {
 	
 	@Column(name = "telefono")
 	private String telefono;
+	
+	@Column(name = "imagen")
+	private String imagen;
 
 	public Persona() {
 		super();
@@ -122,6 +125,14 @@ public abstract class Persona {
 		this.telefono = telefono;
 	}
 	
+	public String getImagen() {
+		return imagen;
+	}
+
+	public void setImagen(String imagen) {
+		this.imagen = imagen;
+	}
+
 	@Override
 	public String toString() {
 		return this.getApellidos() + " " + this.getNombres();
