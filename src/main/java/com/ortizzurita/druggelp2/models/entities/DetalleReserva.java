@@ -10,6 +10,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -102,4 +104,11 @@ public class DetalleReserva implements Serializable{
 		return sdf.format(fechaRecerva.getTime());
 	}
 	
+	@JoinColumn(name="fk_farmaco", referencedColumnName="pk_farmaco")
+	@ManyToOne
+	private  Farmaco farmaco;
+	
+	@JoinColumn(name="fk_reserva", referencedColumnName="pk_reserva")
+	@ManyToOne
+	private  Reserva reserva;
 }
