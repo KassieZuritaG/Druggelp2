@@ -80,8 +80,8 @@
 									sec:authentication="name"></span></a>
 								<div sec:authorize="isAuthenticated()">
 									<form id="frmLogout" th:action="@{/logout}" method="post">
-										<i class="fas fa-sign-out-alt"></i>&nbsp;<a href="#"
-											onclick="document.getElementById('frmLogout').submit();">Salir</a>
+										<a href="#"
+											onclick="document.getElementById('frmLogout').submit();"><p>Salir</p></a>
 										<input type="hidden" th:name="${_csrf.parameterName}"
 											th:value="${_csrf.token}" />
 									</form>
@@ -449,6 +449,65 @@
     <script src="@{/assets/js/plugins.js}"></script>
     <script src="@{/assets/js/main.js}"></script>
 </div>
+
+<div class="row">
+			<div class="col-12">
+				<div id="success-alert" th:if="${success != null}">
+					<script th:inline="javascript">
+						/*<![CDATA[*/
+							var message = /*[[${success}]]*/
+							Swal.fire({
+									title : '¡Correcto!', 
+									text: message,
+									icon : 'success',
+									button : 'Aceptar'
+									})
+						/*]]>*/
+					</script>
+				</div>
+				<div id="error-alert" th:if="${error != null}">
+					<script th:inline="javascript">
+						/*<![CDATA[*/
+							var message = /*[[${error}]]*/
+							Swal.fire({
+									title : '¡Error!', 
+									text: message,
+									icon : 'error',
+									button : 'Aceptar'
+									})
+						/*]]>*/
+					</script>
+				</div>
+				<div id="warning-alert" th:if="${confirmar != null}">
+					<script th:inline="javascript">
+						/*<![CDATA[*/
+							var message = /*[[${confirmar}]]*/
+							Swal.fire({
+									title : 'Eliminar registro', 
+									text: message,
+									icon : 'warning',
+									//showCancelButton: true,
+									buttons: true;
+									//confirmButtonText: 'Eliminar',
+									//cancelButtonText:'Cancelar',
+									//closeOnConfirm: false
+									dangerMode:true
+									})
+									.then((willDelete)=>{
+										if(willDelete){
+											swal("Se ha eliminado correctamente su archivo")}
+											icon:'success',
+										});
+									})else{
+										swal("En hora buena");
+									}
+						/*]]>*/
+					</script>
+				</div>
+								
+			</div>
+		</div>
+
 
 </body>
 </html>

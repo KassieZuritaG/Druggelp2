@@ -1,9 +1,140 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/> 
 <head th:replace="layout :: frgCSS"></head>
 <header th:replace="layout :: frgheader"></header>
 <body>    
+<div class="container" align="center">
+ <span>Crear Cuenta</span>
+<h4 th:text="${title}"></h4>
+<br>
 
+<div class="contact-form-area wow fadeInUp" data-wow-delay="500ms">
+ <form th:action="@{/usuario/save}" th:object="${usuario}" enctype="multipart/form-data" method="post">
+  
+  <div class="row d-flex align-items-center">
+  	<div class="col-1">											
+		<i class="fas fa-user fa-2x"></i>												
+	</div>
+	<div class="col-5">													
+		<label for="validationDefault01">Nombres:</label>
+     	<input required type="text" class="form-control" th:field="*{nombres}" th:errorclass="'form-control is-invalid'" placeholder="Nombres" />										
+      	<small class="invalid-feedback" th:if="${#fields.hasErrors('nombres')}" th:errors="*{nombres}"></small>	
+	</div>											
+	<div class="col-1">											
+		<i class="fas fa-user fa-2x"></i>												
+	</div>
+		<div class="col-5">													
+			<label for="validationDefault01">Apellidos:</label>
+      		<input required type="text" class="form-control" th:field="*{apellidos}" th:errorclass="'form-control is-invalid'" placeholder="Apellidos" />										
+      		<small class="invalid-feedback" th:if="${#fields.hasErrors('apellidos')}" th:errors="*{apellidos}"></small>	
+		</div>
+  </div>
+  <br>
+  <div class="row d-flex align-items-center">
+		<div class="col-1">											
+			<i class="fas fa-user-plus fa-2x"></i>													
+		</div>
+		<div class="col-5">	
+			<input type="text" class="form-control"
+				th:errorclass="'form-control is-invalid'"
+				th:field="*{nombre}" placeholder="Nombre de usuario" /> <small
+				class="invalid-feedback"
+				th:if="${#fields.hasErrors('nombre')}"
+				th:errors="*{nombre}"></small>			
+		 </div>											
+		<div class="col-1">											
+			<i class="fas fa-key fa-2x"></i>												
+		</div>
+		<div class="col-5">
+			<input type="password" class="form-control"
+			th:errorclass="'form-control is-invalid'"
+			th:field="*{password}" placeholder="Password" /><small
+			class="invalid-feedback"
+			th:if="${#fields.hasErrors('password')}"
+			th:errors="*{password}"></small>
+		</div>
+	</div>
+	
+  <div class="row d-flex align-items-center">
+  	<div class="col-1">											
+		<i class="fas fa-calendar-alt fa-2x"></i>													
+	</div>
+	<div class="col-5">													
+		<label for="validationDefault01">Cédula:</label>
+      	<input required type="text" class="form-control" th:field="*{cedula}" th:errorclass="'form-control is-invalid'" placeholder="Cédula" />										
+      	<small class="invalid-feedback" th:if="${#fields.hasErrors('cedula')}" th:errors="*{cedula}"></small>		
+	</div>											
+	<div class="col-1">											
+		<i class="fas fa-map-marker-alt fa-2x"></i>													
+	</div>
+	<div class="col-5">													
+		<label for="validationDefault01">Lugar de Nacimiento:</label>
+      	<input required type="text" class="form-control" th:field="*{lugarNacimiento}" th:errorclass="'form-control is-invalid'" placeholder="Lugar de Nacimiento" />										
+      	<small class="invalid-feedback" th:if="${#fields.hasErrors('lugarNacimiento')}" th:errors="*{lugarNacimiento}"></small>	
+	</div>
+  </div>
+  
+  <div class="row d-flex align-items-center">
+  	<div class="col-1">											
+		<i class="fas fa-calendar-alt fa-2x"></i>													
+	</div>
+	<div class="col-5">													
+		<label for="validationDefault01">Fecha Nacimiento:</label>
+		<input required type="date" class="form-control" th:field="*{fechaNacimiento}" th:errorclass="'form-control is-invalid'" />
+		<small class="invalid-feedback" th:if="${#fields.hasErrors('fechaNacimiento')}" th:errors="*{fechaNacimiento}"></small>		
+	</div>											
+	<div class="col-1">											
+		<i class="fas fa-map-marker-alt fa-2x"></i>													
+	</div>
+	<div class="col-5">	
+		<label for="validationDefault01">Sexo:</label>														
+		<div class="form-control">											
+			&nbsp;&nbsp;<label class="radio-inline"><input type="radio" th:field="*{sexo}" value="M" />&nbsp;&nbsp;Mujer</label>
+			&nbsp;&nbsp;&nbsp;&nbsp;<label class="radio-inline"><input type="radio" th:field="*{sexo}" value="H" />&nbsp;&nbsp;Hombre</label>
+		</div>	
+	</div>
+  </div>
+  
+	<div class="row d-flex align-items-center">
+		<div class="col-1">											
+			<i class="fas fa-phone fa-2x"></i>													
+		</div>
+		<div class="col-5">	
+			<label for="validationDefault01">Télefono:</label>												
+			<input required type="text" class="form-control" th:field="*{telefono}" th:errorclass="'form-control is-invalid'" placeholder="Tel&eacute;fono" />
+			<small class="invalid-feedback" th:if="${#fields.hasErrors('telefono')}" th:errors="*{telefono}"></small>													
+		 </div>											
+		<div class="col-1">											
+			<i class="fas fa-at fa-2x"></i>													
+		</div>
+		<div class="col-5">
+			<label for="validationDefault01">Email:</label>													
+			<input required type="text" class="form-control" th:field="*{email}" th:errorclass="'form-control is-invalid'" placeholder="Correo electr&oacute;nico" />
+			<small class="invalid-feedback" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></small>													
+		</div>
+	</div>
+		
+	<div class="row d-flex align-items-center">					
+		<div class="col-1" >										
+			<i class="fas fa-camera fa-2x"></i>													
+		</div>
+		<div class="col-5">	
+			<label for="validationDefault01">Foto:</label>												
+			<input  type="file" name="photo" id="photo" class="form-control" />												
+		</div>
+	</div>
+	
+	<div align="right" >
+		<button class="btn btn-sm btn-success btn-3" type="submit"><i class="fas fa-sign-in-alt"></i> &nbsp;Guardar</button>
+		<button class="btn btn-sm btn-warning btn-2 ml-2" type="reset"><i class="fas fa-times"></i> &nbsp;Cancelar</button>	
+	</div>
+	
+		<br>
+		
+</form>
+</div>
+</div>
 </body>
 <div th:replace="layout :: frgFooter"></div>
 <div th:replace="layout :: frgScripts"></div>
