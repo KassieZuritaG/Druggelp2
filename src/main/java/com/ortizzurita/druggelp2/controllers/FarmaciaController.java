@@ -54,7 +54,7 @@ public class FarmaciaController {
 		return "redirect:/farmacia/list";
 	}
 	
-	@GetMapping(value= "/list")
+	@GetMapping(value= {"/","/list"})
 	public String list(Model model) {
 		List<Farmacia> farmacias = this.srvFarmacia.findAll();
 		model.addAttribute("farmacias", farmacias);

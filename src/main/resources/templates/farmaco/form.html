@@ -1,10 +1,114 @@
 <!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-</head>
-<body>
-
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/> 
+<head th:replace="layout :: frgCSS"></head>
+<header th:replace="layout :: frgheader"></header>
+<body> 
+	<div class="top-popular-courses-area mt-100 section-padding-100-70">
+		<section class="contact-area mt-100">
+			<div class="container">
+				<div class="row">
+					<div class="col-12">
+						<div class="contact-content">
+							<div class="row">
+								<div class="col-12">
+									<center><h4 th:text="${title}"></h4></center>
+									<br><br>
+									<div class="contact-form-area wow fadeInUp"
+										data-wow-delay="500ms">
+										<form th:action="@{/farmaco/save}" th:object="${farmaco}" enctype="multipart/form-data" method="post">
+											<div class="row d-flex align-items-center" >
+												<div class="col-1" align="center">											
+													<i class="fas fa-adjust"></i>												
+												</div>
+												<div class="col-5">													
+													<input type="text" class="form-control" th:field="*{nombre}" th:errorclass="'form-control is-invalid'" placeholder="Nombre del fármaco" />
+													<small class="invalid-feedback" th:if="${#fields.hasErrors('nombre')}" th:errors="*{nombre}"></small>																
+												</div>
+												<div class="col-1" align="center">										
+													<i class="fas fa-dollar-sign"></i>												
+													</div>
+													<div class="col-5">													
+														<input type="text" class="form-control" th:field="*{costo}" th:errorclass="'form-control is-invalid'" placeholder="Costo" />
+													<small class="invalid-feedback" th:if="${#fields.hasErrors('costo')}" th:errors="*{costo}"></small>																
+												</div>
+											</div>	
+											<div class="row d-flex align-items-center" >
+												<div class="col-1" align="center">											
+													<i class="fas fa-calendar-alt"></i>
+													<strong>Fecha de Fabricación</strong>												
+												</div>
+												<div class="col-5">													
+													<input type="date" class="form-control" th:field="*{fechaFabricacion}" th:errorclass="'form-control is-invalid'" />
+													<small class="invalid-feedback" th:if="${#fields.hasErrors('fechaFabricacion')}" th:errors="*{fechaFabricacion}"></small>													
+												</div>
+												<div class="col-1" align="center">										
+													<i class="fas fa-calendar-alt"></i>
+													<strong>Fecha de Expiración</strong>													
+													</div>
+													<div class="col-5">													
+														<input type="date" class="form-control" th:field="*{fechaExpiracion}" th:errorclass="'form-control is-invalid'" />
+													<small class="invalid-feedback" th:if="${#fields.hasErrors('fechaExpiracion')}" th:errors="*{fechaExpiracion}"></small>															
+												</div>
+											</div>	
+											<div class="row d-flex align-items-center" >
+												<div class="col-1" align="center">											
+													<i class="fas fa-list-ol"></i>											
+												</div>
+												<div class="col-5">													
+													<input type="text" class="form-control" th:field="*{cantidad}" th:errorclass="'form-control is-invalid'" placeholder="Cantidad" />
+													<small class="invalid-feedback" th:if="${#fields.hasErrors('cantidad')}" th:errors="*{cantidad}"></small>																
+												</div>
+												<div class="col-1" align="center">										
+													<i class="far fa-bookmark"></i>												
+													</div>
+													<div class="col-5">													
+														<input type="text" class="form-control" th:field="*{tipoMedicamento}" th:errorclass="'form-control is-invalid'" placeholder="Tipo de medicamento" />
+													<small class="invalid-feedback" th:if="${#fields.hasErrors('tipoMedicamento')}" th:errors="*{tipoMedicamento}"></small>																	
+												</div>
+											</div>	
+											<div class="row d-flex align-items-center" >
+												<div class="col-1" align="center">										
+														<i class="fas fa-camera fa-2x"></i>													
+													</div>
+													<div class="col-5">													
+														<input type="file" name="photo" id="photo" class="form-control" />												
+													</div>
+												<div class="col-1" align="center">											
+													<i class="fas fa-book-open"></i>
+													<strong>Farmacia</strong> 											
+												</div>
+												<div class="col-5">			
+													<select class="form-control" th:field=*{farmacia.idfarmacia}>
+														<option value=0>--Seleccione--</option>
+														<option th:each="farmacia:${farmacias}"
+															th:value="${farmacia.idfarmacia}"
+															th:text="${farmacia.nombre}">
+														</option>
+													</select>
+												</div>	
+											</div>												
+											
+											<br><br>
+											<div class="d-flex justify-content-end">																						
+												<button class="btn btn-success btn-lg active"  type="submit"><i class="fas fa-save"></i> &nbsp;Guardar</button>&nbsp;&nbsp;
+												<button class="btn btn-primary btn-lg active" type="reset"><i class="fas fa-times"></i> &nbsp;Cancelar</button>&nbsp;&nbsp;
+												<a th:href="@{/farmaco/list}" class="btn btn-info btn-lg active" type="reset"><i class="fas fa-adjust"></i> &nbsp;Volver</a>
+											</div>
+											<input type="hidden" th:field="*{idfarmaco}" />	
+										</form>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+	</div>
+	<br>
+	<hr>
 </body>
+<div th:replace="layout :: frgFooter"></div>
+<div th:replace="layout :: frgScripts"></div>
 </html>
