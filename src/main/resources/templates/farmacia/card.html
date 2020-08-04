@@ -1,10 +1,85 @@
 <!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-</head>
-<body>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/> 
+<head th:replace="layout :: frgCSS"></head>
+<header th:replace="layout :: frgheader"></header>
+<body>  
+<div class="top-popular-courses-area mt-100 section-padding-100-70">
+		<section class="contact-area mt-100">
+			<div class="container">  
+<div class="row">
+	<div class="col-12">
+		<div class="row">
+			<div class=col-12>
+				<span>Farmacia</span>
+				<h4 th:text="${title}"></h4>
+			</div>
+									<div class="col-12">
+										<div class="academy-tabs-content">
+											<ul class="nav nav-tabs" id="myTab" role="tablist">
+												<li class="nav-item">
+													<a class="nav-link active" id="tab--1" data-toggle="tab" href="#tab1" role="tab" aria-controls="tab1" aria-selected="false">
+													Datos generales
+													</a>
+												</li>
+											</ul>
+											<br><br>
+											<div class="tab-content mb-100" id="myTabContent">
+												<div class="tab-pane fade show active" id="tab1"
+													role="tabpanel" aria-labelledby="tab--1">
+													<div class="academy-tab-content">
+														<!-- Tab Text -->
+														<div class="academy-tab-text">
+															<div class="contact-form-area wow fadeInUp"
+																data-wow-delay="500ms">
+																<form th:object="${farmacia}" method="post">
+																	<div class="row d-flex align-items-center">
+																		<div class="col-1">
+																			<i class="fas fa-hospital"></i>
+																		</div>
+																		<div class="col-5">
+																			<input type="text" class="form-control"
+																				th:field="*{nombre}" readonly />
+																		</div>
+																		<div class="col-1">
+																			<i class="fas fa-phone"></i>
+																		</div>
+																		<div class="col-5">
+																			<input type="text" class="form-control"
+																				th:field="*{telefono}" readonly />
+																		</div>
+																	</div>
+																	<br>
+																	<div class="row d-flex align-items-center">
+																		<div class="col-1">
+																			<i class="fas fa-map-marker-alt"></i>
+																		</div>
+																		<div class="col-5">
+																			<input type="text" class="form-control"
+																				th:field="*{direccion}" readonly />
+																		</div>
+																	</div>
+																	<br><br><center>
+																	<a th:href="@{/farmacia/list}" class="btn btn-info btn-lg active" type="reset"><i class="fas fa-hospital"></i> &nbsp;Volver</a></center>
+																	
+																	<input type="hidden" th:field="*{idfarmacia}" />
+																</form>
+															</div>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								
+		</div>
+	</div>
+</div>
 
+</div>
+</section>
+</div>
 </body>
+<div th:replace="layout :: frgFooter"></div>
+<div th:replace="layout :: frgScripts"></div>
 </html>

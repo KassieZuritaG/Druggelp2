@@ -11,11 +11,13 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.SessionAttributes;
 
 import com.ortizzurita.druggelp2.models.entities.Farmacia;
 import com.ortizzurita.druggelp2.models.services.IFarmaciaService;
 
 @Controller
+@SessionAttributes("farmacia")
 @RequestMapping(value="/farmacia")
 public class FarmaciaController {
 	
@@ -33,6 +35,7 @@ public class FarmaciaController {
 	@GetMapping(value="/retrieve/{id}")
 	public String retrieve(@PathVariable(value="id") Integer id, Model model) {
 		Farmacia farmacia = this.srvFarmacia.findById(id);
+		model.addAttribute("title", farmacia.toString());
 		model.addAttribute("farmacia", farmacia);
 		return "farmacia/card";
 	}
@@ -51,7 +54,7 @@ public class FarmaciaController {
 		return "redirect:/farmacia/list";
 	}
 	
-	@GetMapping(value= {"/","/list"})
+	@GetMapping(value= "/list")
 	public String list(Model model) {
 		List<Farmacia> farmacias = this.srvFarmacia.findAll();
 		model.addAttribute("farmacias", farmacias);
@@ -67,9 +70,10 @@ public class FarmaciaController {
 				model.addAttribute("farmacia", farmacia);
 				return "farmacia/form";
 				}
-		}catch(Exception ex) {
-			
+		}catch(Exception e) {
+			e.printStackTrace();
 		}
+		this.srvFarmacia.save(farmacia);
 		return "redirect:/farmacia/list";
 	}
 }

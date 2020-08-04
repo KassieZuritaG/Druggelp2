@@ -1,10 +1,70 @@
 <!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-</head>
-<body>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/> 
+<head th:replace="layout :: frgCSS"></head>
+<header th:replace="layout :: frgheader"></header>
+<body> 
+	<div class="top-popular-courses-area mt-100 section-padding-100-70">
+		<section class="contact-area mt-100">
+			<div class="container">
+				<div class="row">
+					<div class="col-12">
+						<div class="contact-content">
+							<div class="row">
+								<div class="col-12">
+									<center><h4 th:text="${title}"></h4></center>
+									<br><br>
+									<div class="contact-form-area wow fadeInUp"
+										data-wow-delay="500ms">
+										<form th:action="@{/farmacia/save}" th:object="${farmacia}" enctype="multipart/form-data" method="post">
+										
+											<div class="row d-flex align-items-center" >
+												<div class="col-1" align="center">											
+													<i class="fas fa-hospital"></i>												
+												</div>
+												<div class="col-5">													
+													<input type="text" class="form-control" th:field="*{nombre}" th:errorclass="'form-control is-invalid'" placeholder="Nombre de la farmacia" />
+													<small class="invalid-feedback" th:if="${#fields.hasErrors('nombre')}" th:errors="*{nombre}"></small>																
+												</div>
+													<div class="col-1" align="center">										
+														<i class="fas fa-phone"></i>												
+													</div>
+													<div class="col-5">													
+														<input type="tel" class="form-control" th:field="*{telefono}" th:errorclass="'form-control is-invalid'" placeholder="Teléfono" />
+													<small class="invalid-feedback" th:if="${#fields.hasErrors('telefono')}" th:errors="*{telefono}"></small>																
+													</div>
+											</div>	
+											<br>		
 
+											<div class="row d-flex align-items-center">
+												<div class="col-1" align="center">						
+													<i class="fas fa-map-marker-alt"></i>								
+												</div>
+												<div class="col-5">											
+													<input type="text" class="form-control" th:field="*{direccion}" th:errorclass="'form-control is-invalid'" placeholder="Dirección"  />
+													<small class="invalid-feedback" th:if="${#fields.hasErrors('direccion')}" th:errors="*{direccion}"></small>												
+												</div>
+											</div>
+											<br><br>
+											<div class="d-flex justify-content-end">																						
+												<button class="btn btn-success btn-lg active"  type="submit"><i class="fas fa-save"></i> &nbsp;Guardar</button>&nbsp;&nbsp;
+												<button class="btn btn-primary btn-lg active" type="reset"><i class="fas fa-times"></i> &nbsp;Cancelar</button>&nbsp;&nbsp;
+												<a th:href="@{/farmacia/list}" class="btn btn-info btn-lg active" type="reset"><i class="fas fa-hospital"></i> &nbsp;Volver</a>
+											</div>
+											<input type="hidden" th:field="*{idfarmacia}" />	
+										</form>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+	</div>
+	<br>
+	<hr>
 </body>
+<div th:replace="layout :: frgFooter"></div>
+<div th:replace="layout :: frgScripts"></div>
 </html>

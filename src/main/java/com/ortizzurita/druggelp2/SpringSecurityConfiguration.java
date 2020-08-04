@@ -34,11 +34,11 @@ public class SpringSecurityConfiguration extends WebSecurityConfigurerAdapter{
 	@Override //Autorization
 	protected void configure(HttpSecurity http) throws Exception {
 		http.authorizeRequests()
-			.antMatchers("/","/assets/**","/Doc/**").permitAll()
+			.antMatchers("/","/assets/**","/Doc/**","/js/**").permitAll()
 			.antMatchers("/usuario/**").anonymous()
 			.antMatchers("/administrador/**").hasAnyRole("USER")
-			.antMatchers("/materia/**").hasAnyRole("ADMIN")
-			.antMatchers("/h2-console/**").hasAnyRole("ADMIN")
+			.antMatchers("/farmacia/**").hasAnyRole("USER")
+			.antMatchers("/h2-console/**").hasAnyRole("USER")
 			.anyRequest().authenticated()
 			.and().formLogin().successHandler(handler).loginPage("/login").permitAll()			
 			.and().logout().permitAll()			
