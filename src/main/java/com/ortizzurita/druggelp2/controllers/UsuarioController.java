@@ -1,5 +1,10 @@
 package com.ortizzurita.druggelp2.controllers;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -9,6 +14,8 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.ortizzurita.druggelp2.models.entities.Rol;
@@ -28,6 +35,7 @@ public class UsuarioController {
 	@GetMapping(value="/create")
 	public String registro(Model model) {	
 		Usuario usuario = new Usuario();
+		usuario.setSexo("M");
 		model.addAttribute("usuario", usuario);
 		model.addAttribute("title", "Registro de nuevo usuario");				
 		return "usuario/form";
@@ -35,14 +43,27 @@ public class UsuarioController {
 	
 	@PostMapping(value="/save")
 	public String save(@Validated Usuario usuario, BindingResult result, Model model,
-			RedirectAttributes flash) {
+			@RequestParam("photo") MultipartFile image, RedirectAttributes flash) {
 		try {
 			if(result.hasErrors())
 			{	
 				model.addAttribute("title", "Registro de nuevo usuario");
 				model.addAttribute("usuario", usuario);
 				return "usuario/form";
-			}			
+			}
+			if (!image.isEmpty()) {				
+				Path dir = Paths.get("src//main//resources//static//photos");
+				String rootPath = dir.toFile().getAbsolutePath();
+				try {
+					byte[] bytes = image.getBytes();
+					Path rutaCompleta = Paths.get(rootPath + "//" + image.getOriginalFilename());
+					Files.write(rutaCompleta, bytes);
+					usuario.setImagen(image.getOriginalFilename());
+
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}	
 			String pass = usuario.getPassword();
 			usuario.setPassword(encoder.encode(pass));			
 			usuario.getRoles().add(new Rol("ROLE_USER"));

@@ -56,4 +56,5 @@ public class Rol implements Serializable {
 		this.nombre = nombre;
 	}
 	
+	
 }

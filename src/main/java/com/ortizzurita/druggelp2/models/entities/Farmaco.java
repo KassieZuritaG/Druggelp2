@@ -18,6 +18,8 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Size;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -35,8 +37,8 @@ public class Farmaco implements Serializable{
 	private Integer idfarmaco;
 	
 	@Column(name="nombre")
-	//@NotEmpty
-	//@Size(max=100)
+	@NotEmpty
+	@Size(max=100)
 	private String nombre;
 	
 	@Column(name="costo")
@@ -57,6 +59,9 @@ public class Farmaco implements Serializable{
 	
 	@Column(name="tipo_medicamento")
 	private Integer tipoMedicamento;
+	
+	@Column(name = "imagen")
+	private String imagen;
 
 	public Farmaco() {
 		super();
@@ -123,6 +128,30 @@ public class Farmaco implements Serializable{
 		this.tipoMedicamento = tipoMedicamento;
 	}
 	
+	public String getImagen() {
+		return imagen;
+	}
+
+	public void setImagen(String imagen) {
+		this.imagen = imagen;
+	}
+
+	public Farmacia getFarmacia() {
+		return farmacia;
+	}
+
+	public void setFarmacia(Farmacia farmacia) {
+		this.farmacia = farmacia;
+	}
+
+	public List<DetalleReserva> getDetalleReserva() {
+		return detalleReserva;
+	}
+
+	public void setDetalleReserva(List<DetalleReserva> detalleReserva) {
+		this.detalleReserva = detalleReserva;
+	}
+
 	@Override
 	public String toString() {
 		return this.getNombre() + " " + this.getFechaExpiracion();
@@ -146,4 +175,6 @@ public class Farmaco implements Serializable{
 	
 	@OneToMany(mappedBy="farmaco",fetch=FetchType.LAZY)
 	private List<DetalleReserva> detalleReserva;
+	
+	
 }

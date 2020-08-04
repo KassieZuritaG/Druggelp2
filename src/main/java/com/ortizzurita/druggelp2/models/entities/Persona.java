@@ -10,6 +10,8 @@ import javax.persistence.TemporalType;
 //import javax.validation.constraints.NotEmpty;
 //import javax.validation.constraints.Size;
 //import javax.validation.constraints.Email;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Size;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -18,18 +20,18 @@ public abstract class Persona {
 
 
 	@Column(name = "nombres")
-	//@NotEmpty
-	//@Size(max=35)
+	@NotEmpty
+	@Size(max=35)
 	private String nombres;
 
 	@Column(name = "apellidos")
-	//@NotEmpty
-	//@Size(max=35)
+	@NotEmpty
+	@Size(max=35)
 	private String apellidos;
 
 	@Column(name = "cedula")
-	//@NotEmpty
-	//@Size(max=15)
+	@NotEmpty
+	@Size(max=15)
 	private String cedula;
 
 	@Column(name = "lugar_nacimiento")
@@ -149,6 +151,5 @@ public abstract class Persona {
 			return "Mujer";
 		
 		return "Hombre";		
-	}
-	
+	}	
 }

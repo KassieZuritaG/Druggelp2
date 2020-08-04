@@ -111,4 +111,22 @@ public class DetalleReserva implements Serializable{
 	@JoinColumn(name="fk_reserva", referencedColumnName="pk_reserva")
 	@ManyToOne
 	private  Reserva reserva;
+
+	public Farmaco getFarmaco() {
+		return farmaco;
+	}
+
+	public void setFarmaco(Farmaco farmaco) {
+		this.farmaco = farmaco;
+	}
+
+	public Reserva getReserva() {
+		return reserva;
+	}
+
+	public void setReserva(Reserva reserva) {
+		this.reserva = reserva;
+	}
+	
+	
 }

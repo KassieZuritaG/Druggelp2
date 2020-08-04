@@ -80,4 +80,22 @@ public class Reserva implements Serializable{
 	@JoinColumn(name="fk_cliente", referencedColumnName="pk_cliente")
 	@ManyToOne
 	private Cliente cliente;
+
+	public List<DetalleReserva> getDetalleReserva() {
+		return detalleReserva;
+	}
+
+	public void setDetalleReserva(List<DetalleReserva> detalleReserva) {
+		this.detalleReserva = detalleReserva;
+	}
+
+	public Cliente getCliente() {
+		return cliente;
+	}
+
+	public void setCliente(Cliente cliente) {
+		this.cliente = cliente;
+	}
+	
+	
 }

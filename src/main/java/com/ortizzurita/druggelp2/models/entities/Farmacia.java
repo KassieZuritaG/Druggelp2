@@ -88,4 +88,12 @@ public class Farmacia implements Serializable{
 	
 	@OneToMany(mappedBy="farmacia",fetch=FetchType.LAZY)
 		private List<Farmaco> farmacos;
+
+	public List<Farmaco> getFarmacos() {
+		return farmacos;
+	}
+
+	public void setFarmacos(List<Farmaco> farmacos) {
+		this.farmacos = farmacos;
+	}
 }
