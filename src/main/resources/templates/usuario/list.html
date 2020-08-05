@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/> 
+<head th:replace="layout :: frgCSS"></head>
+<header th:replace="layout :: frgheader"></header>
+<body>
+	
+	<center><h2>Usuarios</h2></center>
+	
+	
+	<div class="top-popular-courses-area mt-600 section-padding-100-40">
+		<section class="contact-area mt-50">
+			<div class="container">
+				<div class="row">
+					<div class="col-12">
+						<div class="contact-content">
+							<div class="row">
+								<div class="col-12">
+									<div class="section-heading text-left">
+											<h4 th:text="${title}"></h4>											
+										</div>
+									<div class="contact-form-area wow fadeInUp"
+										data-wow-delay="500ms">
+									
+														
+					<table  class="table table-hover">
+						<thead class="bg-light">
+							<tr>
+								<th><i class="far fa-address-card"></i>&nbsp;Cédula</th>
+								<th><i class="far fa-address-book"></i>&nbsp;Nombres</th>
+								<th><i class="fas fa-user-tie"></i>&nbsp;Apellidos</th>								
+								<th><i class="fas fa-calendar-alt"></i>&nbsp;Fecha de nacimiento</th>
+								<th><i class="fas fa-calendar-alt"></i>&nbsp;Télefono</th>
+								<th align="left" ><a class="btn btn-block academy-btn btn-3"  th:href="@{/administrador/create}"><i class="fas fa-plus-circle"></i>&nbsp; Nuevo</a></th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr th:each="user : ${usuarios}">
+								<td th:text="${user.cedula}"></td>
+								<td th:text="${user.nombres}"></td>								
+								<td th:text="${user.apellidos}"></td>
+								<td th:text="${user.fechaNac()}"></td> 
+								<td th:text="${user.telefono}"></td>
+								<td align="center">									
+									<a class="btn btn-xs academy-btn btn-3" th:href="@{/usuario/retrieve/} + ${user.idusuario}"><i class="fas fa-eye"></i></a>
+									<a class="btn btn-xs academy-btn btn-2" th:href="@{usuario/update/} + ${user.idusuario}"><i class="fas fa-edit"></i></a>
+									<button th:onclick="|onDelete(${user.idusuario});|" class="btn  academy-btn btn-4"><i class="fas fa-trash-alt"></i></button>
+								</td>
+							</tr>
+						</tbody>
+					</table>									
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+	</div>
+	<br>
+	<hr>
+	
+</body>
+<div th:replace="layout :: frgFooter"></div>
+<div th:replace="layout :: frgScripts"></div>
+<script th:inline="javascript">
+function onDeletefarmaco(id){	
+	/*<![CDATA[*/
+		//var message = /*[[${confirmar}]]*/
+		Swal.fire({
+				title : 'Eliminar registro', 
+				icon : 'warning',
+				showCancelButton: true,
+				confirmButtonText: 'Eliminar',
+				cancelButtonText:'Cancelar',
+				closeOnConfirm: false
+				}).then((choice) => {
+			        if (choice.value == true) {
+			            $.ajax({
+			                type: "GET",
+			                url : "/farmaco/delete/" + id,
+			            });
+			        }		
+			        location.reload();
+			    });
+	/*]]>*/
+		
+}
+</script>
+</html>

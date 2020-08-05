@@ -61,7 +61,7 @@ public class FarmacoController {
 		List<Farmacia> farmacias = this.srvFarmacia.findAll();
 		model.addAttribute("farmacias", farmacias);
 		model.addAttribute("farmaco", farmaco);
-		model.addAttribute("title", "Actualizando el registro de "+ farmaco);
+		model.addAttribute("title", "Actualizando el registro de "+ farmaco.toString());
 		return "farmaco/form";
 	}
 	

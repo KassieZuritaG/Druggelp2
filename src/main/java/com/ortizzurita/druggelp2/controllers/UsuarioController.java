@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -12,6 +13,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -40,6 +42,11 @@ public class UsuarioController {
 		model.addAttribute("title", "Registro de nuevo usuario");				
 		return "usuario/form";
 	}
+	
+	/*@GetMapping(value="/retrieve/{id}")
+	public String retrieve(@PathVariable(value="id") Integer id, Model model) {
+		Usuario usuario = 
+	}*/
 	
 	@PostMapping(value="/save")
 	public String save(@Validated Usuario usuario, BindingResult result, Model model,
@@ -76,4 +83,12 @@ public class UsuarioController {
 		}
 		return "redirect:/login";		
 	} 
+	
+	@GetMapping(value="/list")
+	public String list(Model model) {
+		List<Usuario> usuarios = service.findAll();
+		model.addAttribute("usuarios", usuarios);
+		model.addAttribute("title", "Listado de usuarios");
+		return "usuario/list";
+	}
 }

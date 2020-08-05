@@ -97,5 +97,16 @@ public class Reserva implements Serializable{
 		this.cliente = cliente;
 	}
 	
+	@JoinColumn(name="fk_usuario", referencedColumnName="pk_usuario")
+	@ManyToOne
+	private Usuario usuario;
+
+	public Usuario getUsuario() {
+		return usuario;
+	}
+
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
+	}
 	
 }

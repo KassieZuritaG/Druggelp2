@@ -41,14 +41,23 @@ public class UsuarioService implements UserDetailsService{
 		return new User(usuario.getNombre(), usuario.getPassword(), usuario.getHabilitado(), true, true, true, roles);		
 	}
 	
-	@Transactional
-	public void save(Usuario usuario) {
-		dao.save(usuario);		
-	}
-	
 	@Transactional	
 	public List<Usuario> findAll(){		
 		return (List<Usuario>) dao.findAll();
 	}
+	
+	@Transactional
+	public Usuario findById(Integer id) {		
+		return dao.findById(id).get();
+	}
+	
+	@Transactional
+	public void save(Usuario u) {
+		dao.save(u);		
+	}
 
+	@Transactional
+	public void delete(Integer id) {
+		dao.deleteById(id);				
+	}
 }
