@@ -32,11 +32,12 @@
                 <!-- Nav Card -->
                 <div class="tab-content" id="nav-tabContent">
                     <!-- card one -->
-                   
+                    
 	                    <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
-	                        <div class="row ">
+	                        <div class="row">
+	                        
+	                        <div th:each="farmaco : ${farmacos}">
 	                            <div class="col-xl-4 col-lg-4 col-md-6 col-sm-6">
-	                            <div th:each="farmaco : ${farmacos}">
 	                                <div class="single-popular-items mb-50 text-center">
 	                                    <div class="popular-img">
 	                                        <img th:src="@{/photos/} + ${farmaco.imagen}"/>
@@ -51,6 +52,20 @@
 	                                        <h3><a href="product_details.html" th:text="${farmaco.nombre}"></a></h3>
 	                                        <span th:text="${farmaco.costo}"></span>
 	                                    </div>
+	                                </div>
+	                            </div>
+	                            <div class="col-xl-4 col-lg-4 col-md-6 col-sm-6">
+	                                <div class="single-popular-items mb-50 text-center">
+	                                    <div class="popular-img">
+	                                      <h2 th:text="${farmaco.nombre}"></h2>
+										
+										<h2 th:text="${farmaco.costo}"></h2>								
+										<h2 th:text="${farmaco.fechaFab()}"></h2>
+										<h2 th:text="${farmaco.fechaExp()}"></h2>
+										<h2 th:text="${farmaco.farmacia}"></h2>
+										<h2 th:text="${farmaco.tipoMedicamento}"></h2>
+	                                    </div>
+	                                    
 	                                </div>
 	                            </div>
 	                        </div>
