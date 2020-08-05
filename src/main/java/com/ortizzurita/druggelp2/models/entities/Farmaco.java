@@ -3,6 +3,7 @@ package com.ortizzurita.druggelp2.models.entities;
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.util.List;
 
 import javax.persistence.Basic;
@@ -154,18 +155,18 @@ public class Farmaco implements Serializable{
 
 	@Override
 	public String toString() {
-		return this.getNombre() + " " + this.getFechaExpiracion();
+		return this.getNombre() + " " + this.getTipoMedicamento();
 	}
 	
 	public String fechaExp() {
 		if(this.fechaExpiracion == null) return "-";
-		SimpleDateFormat sdf = new SimpleDateFormat("dd/MMM/yyyy");		
+		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");		
 		return sdf.format(fechaExpiracion.getTime());
 	}
 	
 	public String fechaFab() {
 		if(this.fechaFabricacion == null) return "-";
-		SimpleDateFormat sdf = new SimpleDateFormat("dd/MMM/yyyy");		
+		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");		
 		return sdf.format(fechaFabricacion.getTime());
 	}
 	
@@ -176,5 +177,8 @@ public class Farmaco implements Serializable{
 	@OneToMany(mappedBy="farmaco",fetch=FetchType.LAZY)
 	private List<DetalleReserva> detalleReserva;
 	
-	
+	Calendar c=new GregorianCalendar();
+	int dia=c.get(Calendar.DAY_OF_MONTH);
+	int mes=c.get(Calendar.MONTH);
+	int an=c.get(Calendar.YEAR);
 }

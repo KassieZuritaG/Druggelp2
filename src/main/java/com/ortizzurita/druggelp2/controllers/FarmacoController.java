@@ -58,10 +58,10 @@ public class FarmacoController {
 	@GetMapping(value="/update/{id}")
 	public String update(@PathVariable(value="id") Integer id, Model model) {
 		Farmaco farmaco = this.srvFarmaco.findById(id);
-		List<Farmacia> farmacias = this.srvFarmacia.findAll();
+		List<Farmacia> farmacias = srvFarmacia.findAll();
 		model.addAttribute("farmacias", farmacias);
 		model.addAttribute("farmaco", farmaco);
-		model.addAttribute("title", "Actualizando el registro de "+ farmaco.toString());
+		model.addAttribute("title", "Actualizando el registro de "+ farmaco.getNombre() +" - "+farmaco.fechaExp());
 		return "farmaco/form";
 	}
 	
