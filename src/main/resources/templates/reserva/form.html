@@ -1,10 +1,21 @@
 <!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-</head>
+<html xmlns:th="http://www.thymeleaf.org">
 <body>
-
+	<form id="frmReserva" class="contact-form-area ml-3 mr-3" th:object="${reserva}" th:action="@{/reserva/save}" method="post">
+		<hr>
+		<div class="row d-flex align-items-center" >
+			<div class="col-1" align="center">
+				<i class="fas fa-adjust"></i>
+			</div>
+			<div class="col-5">
+				<input type="date" class="form-control" th:field="*{fechaRecerva}" th:errorclass="'form-control is-invalid'" placeholder="Fecha de Reserva" />
+				<small class="invalid-feedback" th:if="${#fields.hasErrors('fechaRecerva')}" th:errors="*{fechaRecerva}"></small>																
+			</div>
+		</div>	
+		
+		<input type="hidden" th:field="*{usuarioid}" />
+		<input type="hidden" th:field="*{idreserva}" />
+		
+	</form>
 </body>
 </html>

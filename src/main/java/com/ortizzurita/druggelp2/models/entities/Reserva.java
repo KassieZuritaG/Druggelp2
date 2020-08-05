@@ -18,6 +18,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -37,6 +38,11 @@ public class Reserva implements Serializable{
 	@Temporal(TemporalType.DATE)
 	@DateTimeFormat(pattern = "yyyy-MM-dd")	
 	private Calendar fechaRecerva;
+	
+	/**** TRANSIENT ***/
+	
+	@Transient
+	private int usuarioid;
 
 	public Reserva() {
 		super();
@@ -107,6 +113,14 @@ public class Reserva implements Serializable{
 
 	public void setUsuario(Usuario usuario) {
 		this.usuario = usuario;
+	}
+
+	public int getUsuarioid() {
+		return usuarioid;
+	}
+
+	public void setUsuarioid(int usuarioid) {
+		this.usuarioid = usuarioid;
 	}
 	
 }

@@ -1,10 +1,9 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
-<head th:replace="layout :: frgHead">
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-</head>
-<head th:replace="layout :: frgMenuSup">
-</head>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/> 
+<head th:replace="layout :: frgCSS"></head>
+<header th:replace="layout :: frgheader"></header>
+
 <body>
  <div class="container" align="center">
 	<div class="top-popular-courses-area mt-100 section-padding-100-70">

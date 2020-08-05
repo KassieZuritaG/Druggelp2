@@ -39,4 +39,15 @@ public class ReservaService implements IReservaService{
 		return (List<Reserva>) dao.findAll();
 	}
 
+	@Override
+	public List<Reserva> findByUsuario(Integer id) {
+		try {
+			List<Reserva> resultado = dao.findByUsuario(id);
+			return resultado;
+		}catch(Exception ex) {
+			System.out.println("Error =>" + ex.getMessage());
+			return null;
+		}
+	}
+
 }

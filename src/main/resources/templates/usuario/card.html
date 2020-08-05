@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/> 
+<head th:replace="layout :: frgCSS"></head>
+<header th:replace="layout :: frgheader"></header>
+<body>  
+
+<div class="top-popular-courses-area mt-100 section-padding-100-70">
+		<section class="contact-area mt-100">
+			<div class="container">
+				<div class="row">
+					<div class="col-12">
+						<div class="contact-content">
+							<div class="row">
+								<div class="col-12">
+									<div class="row">
+										<div class=col-10>
+											<span>Contenido</span>
+											<h4 th:text="${title}"></h4>
+										</div>
+										<div class=col-2>
+											<img th:src="@{/photos/} + ${usuario.imagen}" width="80"
+												height="80" />
+										</div>
+									</div>
+
+<!-- ---------------------------------------------------------------------------------------------------- -->
+
+<!-- ##### Tabs ##### -->
+									<div class="col-12">
+										<div class="academy-tabs-content">
+											<ul class="nav nav-tabs" id="myTab" role="tablist">
+												<li class="nav-item"><a class="nav-link active"
+													id="tab--1" data-toggle="tab" href="#tab1" role="tab"
+													aria-controls="tab1" aria-selected="false">Datos
+														generales</a></li>
+												<li class="nav-item"><a class="nav-link" id="tab--2"
+													data-toggle="tab" href="#tab2" role="tab"
+													aria-controls="tab2" aria-selected="false">Reservas</a>
+												</li>
+											</ul>
+
+											<div class="tab-content mb-100" id="myTabContent">
+												<div class="tab-pane fade show active" id="tab1"
+													role="tabpanel" aria-labelledby="tab--1">
+													<div class="academy-tab-content">
+														<!-- Tab Text -->
+														<div class="academy-tab-text">
+															<div class="contact-form-area wow fadeInUp"
+																data-wow-delay="500ms">
+																<form th:object="${usuario}" method="post">
+																<br>
+																	<div class="row d-flex align-items-center">
+																		<div class="col-1">
+																			<i class="far fa-address-card fa-2x"></i>
+																		</div>
+																		<div class="col-5">
+																			<input type="text" class="form-control"
+																				th:field="*{cedula}" readonly />
+																		</div>
+																		<div class="col-1">
+																			<i class="fas fa-genderless fa-2x"></i>
+																		</div>
+																		<div class="col-5">
+																			<input type="text" class="form-control"
+																				th:value="${usuario.sexoDesc()}" readonly />
+																		</div>
+																	</div>
+																	<br>
+																	<div class="row d-flex align-items-center">
+																		<div class="col-1">
+																			<i class="far fa-user fa-2x"></i>
+																		</div>
+																		<div class="col-5">
+																			<input type="text" class="form-control"
+																				th:field="*{nombres}" readonly />
+																		</div>
+																		<div class="col-1">
+																			<i class="far fa-user fa-2x"></i>
+																		</div>
+																		<div class="col-5">
+																			<input type="text" class="form-control"
+																				th:field="*{apellidos}" readonly />
+																		</div>
+																	</div>
+																	<br>
+																	<div class="row d-flex align-items-center">
+																		<div class="col-1">
+																			<i class="fas fa-phone fa-2x"></i>
+																		</div>
+																		<div class="col-5">
+																			<input type="text" class="form-control"
+																				th:field="*{telefono}" readonly />
+																		</div>
+																		<div class="col-1">
+																			<i class="fas fa-at fa-2x"></i>
+																		</div>
+																		<div class="col-5">
+																			<input type="text" class="form-control"
+																				th:field="*{email}" readonly />
+																		</div>
+																	</div>
+																	<br>
+																	<div class="row d-flex align-items-center">
+																		<div class="col-1">
+																			<i class="fas fa-calendar-alt fa-2x"></i>
+																		</div>
+																		<div class="col-5">
+																			<input type="date" class="form-control"
+																				th:field="*{fechaNacimiento}" readonly />
+																		</div>
+																		<div class="col-1">
+																			<i class="fas fa-map-marker-alt fa-2x"></i>
+																		</div>
+																		<div class="col-5">
+																			<input type="text" class="form-control"
+																				th:field="*{lugarNacimiento}" readonly />
+																		</div>
+																	</div>
+																	<br>
+																	<center><a th:href="@{/usuario/list}" class="btn btn-sm academy-btn btn-4 ml-2" type="reset"><i class="fas fa-users"></i> &nbsp;Volver</a></center>
+																	<input type="hidden" th:field="*{idusuario}" />
+																</form>
+															</div>
+														</div>
+													</div>
+												</div>
+												<br><br>
+												<div class="tab-pane fade" id="tab2" role="tabpanel"
+													aria-labelledby="tab--2">
+													<div class="academy-tab-content">
+														<button id="btnAdd" class="btn btn-primary btn-lg active" data-toggle="modal" data-target="#modalReserva">
+																<i class="fas fa-plus-circle"></i>&nbsp;Nuevo</button>
+														<!-- Tab Text -->
+														<div class="academy-tab-text" id="listReserva">
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								
+								<!-- Modal de reserva -->
+								<div class="modal fade" id="modalReserva" tabindex="-1" role="dialog"
+									aria-labelledby="exampleModalLabel" aria-hidden="true">
+									<div class="modal-dialog">
+										<div class="modal-content">
+											<div class="modal-header">
+												<h5 class="modal-title">Agregar nueva Reserva</h5>
+												<button type="button" class="close" data-dismiss="modal"
+													aria-label="Close">
+													<span aria-hidden="true">&times;</span>
+												</button>
+											</div>
+											<div id="contentReserva"
+												class="modal-body contact-area contact-content-modal"></div>
+											<div class="modal-footer">
+												<button type="button" class="btn btn-success btn-lg active">Guardar</button>
+												<button type="button" class="btn btn-danger btn-lg active"
+													data-dismiss="modal">Cancelar</button>
+											</div>
+										</div>
+									</div>
+								</div>
+								
+								
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+	</div>
+
+</body>
+<div th:replace="layout :: frgFooter"></div>
+<div th:replace="layout :: frgScripts"></div>
+<script th:src="@{/assets/js/reserva/cardReserva.js}"></script>
+
+</html>

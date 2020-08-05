@@ -28,10 +28,10 @@
 							<tr>
 								<th><i class="far fa-address-card"></i>&nbsp;Cédula</th>
 								<th><i class="far fa-address-book"></i>&nbsp;Nombres</th>
-								<th><i class="fas fa-user-tie"></i>&nbsp;Apellidos</th>								
+								<th><i class="fas fa-user"></i>&nbsp;Apellidos</th>								
 								<th><i class="fas fa-calendar-alt"></i>&nbsp;Fecha de nacimiento</th>
 								<th><i class="fas fa-calendar-alt"></i>&nbsp;Télefono</th>
-								<th align="left" ><a class="btn btn-block academy-btn btn-3"  th:href="@{/administrador/create}"><i class="fas fa-plus-circle"></i>&nbsp; Nuevo</a></th>
+								<th align="left" ><a class="btn btn-primary btn-lg active"  th:href="@{/usuario/create1}"><i class="fas fa-plus-circle"></i>&nbsp; Nuevo</a></th>
 							</tr>
 						</thead>
 						<tbody>
@@ -42,9 +42,9 @@
 								<td th:text="${user.fechaNac()}"></td> 
 								<td th:text="${user.telefono}"></td>
 								<td align="center">									
-									<a class="btn btn-xs academy-btn btn-3" th:href="@{/usuario/retrieve/} + ${user.idusuario}"><i class="fas fa-eye"></i></a>
-									<a class="btn btn-xs academy-btn btn-2" th:href="@{usuario/update/} + ${user.idusuario}"><i class="fas fa-edit"></i></a>
-									<button th:onclick="|onDelete(${user.idusuario});|" class="btn  academy-btn btn-4"><i class="fas fa-trash-alt"></i></button>
+									<a class="btn btn-success btn-lg active" th:href="@{/usuario/retrieve/} + ${user.idusuario}"><i class="fas fa-eye"></i></a>
+									<a class="btn btn-warning btn-lg active" th:href="@{/usuario/update/} + ${user.idusuario}"><i class="fas fa-edit"></i></a>
+									<button th:onclick="|onDeleteuser(${user.idusuario});|" class="btn btn-danger btn-lg active"><i class="fas fa-trash-alt"></i></button>
 								</td>
 							</tr>
 						</tbody>
@@ -65,7 +65,7 @@
 <div th:replace="layout :: frgFooter"></div>
 <div th:replace="layout :: frgScripts"></div>
 <script th:inline="javascript">
-function onDeletefarmaco(id){	
+function onDeleteuser(id){	
 	/*<![CDATA[*/
 		//var message = /*[[${confirmar}]]*/
 		Swal.fire({
@@ -79,7 +79,7 @@ function onDeletefarmaco(id){
 			        if (choice.value == true) {
 			            $.ajax({
 			                type: "GET",
-			                url : "/farmaco/delete/" + id,
+			                url : "/usuario/delete/" + id,
 			            });
 			        }		
 			        location.reload();
