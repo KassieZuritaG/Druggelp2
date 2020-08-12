@@ -35,16 +35,12 @@
                    
 	                    <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
 	                        <div class="row ">
-	                            <div class="col-xl-4 col-lg-4 col-md-6 col-sm-6">
-	                            <div th:each="farmaco : ${farmacos}">
+	                            <div th:each="farmaco : ${farmacos}" class="col-xl-4 col-lg-4 col-md-6 col-sm-6">
 	                                <div class="single-popular-items mb-50 text-center">
 	                                    <div class="popular-img">
 	                                        <img th:src="@{/photos/} + ${farmaco.imagen}"/>
 	                                        <div class="img-cap">
-	                                            <span>Añadir al carrito</span>
-	                                        </div>
-	                                        <div class="favorit-items">
-	                                            <span class="flaticon-heart"></span>
+	                                            <span th:text="${farmaco.farmacia}"></span>
 	                                        </div>
 	                                    </div>
 	                                    <div class="popular-caption">
@@ -52,7 +48,6 @@
 	                                        <span th:text="${farmaco.costo}"></span>
 	                                    </div>
 	                                </div>
-	                            </div>
 	                        </div>
 	                    </div>
                     </div>
@@ -66,3 +61,4 @@
 <div th:replace="layout :: frgFooter"></div>
 <div th:replace="layout :: frgScripts"></div>
 </html>
+
