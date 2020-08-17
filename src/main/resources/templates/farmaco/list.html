@@ -66,28 +66,5 @@
 </body>
 <div th:replace="layout :: frgFooter"></div>
 <div th:replace="layout :: frgScripts"></div>
-<script th:inline="javascript">
-function onDeletefarmaco(id){	
-	/*<![CDATA[*/
-		//var message = /*[[${confirmar}]]*/
-		Swal.fire({
-				title : 'Eliminar registro', 
-				icon : 'warning',
-				showCancelButton: true,
-				confirmButtonText: 'Eliminar',
-				cancelButtonText:'Cancelar',
-				closeOnConfirm: false
-				}).then((choice) => {
-			        if (choice.value == true) {
-			            $.ajax({
-			                type: "GET",
-			                url : "/farmaco/delete/" + id,
-			            });
-			        }		
-			        location.reload();
-			    });
-	/*]]>*/
-		
-}
-</script>
+<script th:src="@{/assets/js/farmaco/card-farmaco.js}"></script>
 </html>

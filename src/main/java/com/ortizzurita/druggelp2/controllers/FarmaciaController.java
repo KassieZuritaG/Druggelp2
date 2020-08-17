@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.bind.support.SessionStatus;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.ortizzurita.druggelp2.models.entities.Farmacia;
 import com.ortizzurita.druggelp2.models.services.IFarmaciaService;
@@ -50,7 +52,7 @@ public class FarmaciaController {
 	
 	@GetMapping(value="/delete/{id}")
 	public String delete(@PathVariable(value="id") Integer id, Model model) {
-		this.srvFarmacia.delete(id);
+		srvFarmacia.delete(id);
 		return "redirect:/farmacia/list";
 	}
 	
@@ -63,17 +65,29 @@ public class FarmaciaController {
 	}
 	
 	@PostMapping(value="/save") 
-	public String save(@Validated Farmacia farmacia, BindingResult result, Model model) {
+	public String save(@Validated Farmacia farmacia, SessionStatus status, BindingResult result, Model model, RedirectAttributes flash) {
 		try {
+			String message = "Farmacia agregada correctamente";
+			String titulo = "Nuevo registro de Farmacia";
+			
+			if(farmacia.getIdfarmacia() != null) {
+				message = "Farmacia actualizada correctamente";
+				titulo = "Actualizando el registro de " + farmacia;
+			}
+			
 			if(result.hasErrors()) {
 				model.addAttribute("title", "Error al registrar una nueva farmacia");
 				model.addAttribute("farmacia", farmacia);
 				return "farmacia/form";
 				}
+			srvFarmacia.save(farmacia);
+			status.setComplete();
+			flash.addFlashAttribute("success", message);
+			
 		}catch(Exception e) {
-			e.printStackTrace();
+			flash.addFlashAttribute("error", e.getMessage());
 		}
-		this.srvFarmacia.save(farmacia);
+		
 		return "redirect:/farmacia/list";
 	}
 }

@@ -1,4 +1,4 @@
-function onDelete(id){	
+function onDeletefarmaco(id){	
 			Swal.fire({
 				  title: '¿Estás seguro?',
 				  text : "Una vez eliminado no se podrá recuperar el registro" ,
@@ -17,12 +17,12 @@ function onDelete(id){
 
 function eliminar(id) {
 	$.ajax({
-		url : "/farmacia/delete/" + id,
+		url : "/farmaco/delete/" + id,
 		method : 'GET',
 		success : function(response){
 			Swal.fire(
-		      'Farmacia eliminada',
-		      'Farmacia eliminada correctamente.',
+		      'Fármaco eliminado',
+		      'Fármaco eliminado correctamente.',
 		      'success'
 		    ).then((result) => {
 		    	location.reload();
@@ -31,7 +31,7 @@ function eliminar(id) {
 		error : function(err){
 			Swal.fire(
 		      'Ha ocurrido un error',
-		      'No se ha podido eliminar la farmacia, intente nuevamente.',
+		      'No se ha podido eliminar el fármaco, intente nuevamente.',
 		      'warning'
 		    )
 			console.error(err);

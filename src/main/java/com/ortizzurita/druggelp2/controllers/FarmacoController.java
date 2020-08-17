@@ -66,14 +66,8 @@ public class FarmacoController {
 	}
 	
 	@GetMapping(value="/delete/{id}")
-	public String delete(@PathVariable(value="id") Integer id, Model model, RedirectAttributes flash) {
-		try {
-			flash.addFlashAttribute("success", "Eliminado correctamente");
-			}
-			catch(Exception ex) {
-				flash.addFlashAttribute("error", "El fármaco no se puede eliminar");
-			}
-		this.srvFarmaco.delete(id);
+	public String delete(@PathVariable(value="id") Integer id, Model model) {
+		srvFarmaco.delete(id);
 		return "redirect:/farmaco/list";
 	}
 	
@@ -100,7 +94,7 @@ public class FarmacoController {
 			}
 			
 			if(result.hasErrors()) {
-				model.addAttribute("title", titulo);
+				model.addAttribute("title", "Error al registrar una nuevo fármaco");
 				model.addAttribute("farmacos", farmacos);
 				return "farmaco/form";
 			}
@@ -116,11 +110,15 @@ public class FarmacoController {
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
-			}	
+			}
+			
+			this.srvFarmaco.save(farmacos);
+			status.setComplete();
+			flash.addFlashAttribute("success", message);
 		}catch(Exception ex) {
-			ex.printStackTrace();
+			flash.addFlashAttribute("error", ex.getMessage());
 		}
-		this.srvFarmaco.save(farmacos);
+		
 		return "redirect:/farmaco/list";
 	}
 }

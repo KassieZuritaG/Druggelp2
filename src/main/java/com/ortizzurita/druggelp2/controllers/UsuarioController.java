@@ -71,8 +71,10 @@ public class UsuarioController {
 					Path rutaCompleta = Paths.get(rootPath + "//" + image.getOriginalFilename());
 					Files.write(rutaCompleta, bytes);
 					usuario.setImagen(image.getOriginalFilename());
+					flash.addFlashAttribute("success", "El usuario fue agregado con éxito.");
 
 				} catch (IOException e) {
+					flash.addFlashAttribute("error", "El usuario no pudo ser agregado.");
 					e.printStackTrace();
 				}
 			}	
