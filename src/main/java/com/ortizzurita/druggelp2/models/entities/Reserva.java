@@ -2,6 +2,7 @@ package com.ortizzurita.druggelp2.models.entities;
 
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
 import java.util.Calendar;
 import java.util.List;
 
@@ -15,12 +16,18 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.PrePersist;
+import javax.persistence.PreUpdate;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Transient;
 
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name="reservas")
@@ -43,6 +50,10 @@ public class Reserva implements Serializable{
 	
 	@Transient
 	private int usuarioid;
+	
+	@JsonIgnore
+	@OneToMany(mappedBy="reserva", fetch=FetchType.LAZY)
+	private List<Medicamento> medicamentos;
 
 	public Reserva() {
 		super();
@@ -68,6 +79,18 @@ public class Reserva implements Serializable{
 	public void setFechaRecerva(Calendar fechaRecerva) {
 		this.fechaRecerva = fechaRecerva;
 	}
+	
+	@Column(name = "creado_en")
+	private LocalDateTime creadoEn;
+
+	@Column(name = "creado_por")
+	private String creadoPor;
+
+	@Column(name = "modificado_en")
+	private LocalDateTime modificadoEn;
+
+	@Column(name = "modificado_por")
+	private String modificadoPor;
 	
 	@Override
 	public String toString() {
@@ -122,5 +145,26 @@ public class Reserva implements Serializable{
 	public void setUsuarioid(int usuarioid) {
 		this.usuarioid = usuarioid;
 	}
+
+	public List<Medicamento> getMedicamentos() {
+		return medicamentos;
+	}
+
+	public void setMedicamentos(List<Medicamento> medicamentos) {
+		this.medicamentos = medicamentos;
+	}	
 	
+	@PrePersist
+	public void prePersist() {
+		creadoEn = LocalDateTime.now();
+		SecurityContext context = SecurityContextHolder.getContext();
+        creadoPor = context.getAuthentication().getName();
+	}
+
+	@PreUpdate
+	public void preUpdate() {
+		modificadoEn = LocalDateTime.now();
+		SecurityContext context = SecurityContextHolder.getContext();
+        modificadoPor = context.getAuthentication().getName();
+	}
 }

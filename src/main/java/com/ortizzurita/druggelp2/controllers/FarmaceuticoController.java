@@ -23,8 +23,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.ortizzurita.druggelp2.models.entities.Farmaceutico;
 import com.ortizzurita.druggelp2.models.services.IFarmaceuticoService;
 
-
-
 @Controller
 @RequestMapping(value="/farmaceutico")  
 public class FarmaceuticoController {

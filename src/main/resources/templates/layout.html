@@ -23,6 +23,8 @@
     <link rel="stylesheet" th:href="@{/assets/css/style.css}">
     
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+    <script src="https://cdnjs.com/libraries/Chart.js"></script> 
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3"></script>
     
 </head>
 
@@ -50,7 +52,7 @@
                                     <li class="hot"><a th:href="@{/shop.html}">Fármacos</a></li>
                                     <li><a th:href="@{/usuario/list}">Personal</a>
                                     </li>
-                                    <li><a href="#">Pedido</a>
+                                    <li><a th:href="@{/reserva/create}">Pedido</a>
                                     </li>
                                 </ul>
                             </nav>
@@ -85,7 +87,7 @@
                     <div class="col-12">
                         <div class="mobile_menu d-block d-lg-none"></div>
                     </div>
-                </div>
+                </div>                
             </div>
         </div>
         </div>
@@ -94,7 +96,6 @@
 
 </head>
 <body>
-
 <div th:fragment="frgFooter">
 <footer>
         <!-- Footer Start-->
@@ -226,6 +227,7 @@
     <script th:src="@{/assets/js/jquery.validate.min.js}"></script>
     <script th:src="@{/assets/js/mail-script.js}"></script>
     <script th:src="@{/assets/js/jquery.ajaxchimp.min.js}"></script>
+    <script th:src="@{/assets/js/layout-util.js}"></script>
     
     <!-- Jquery Plugins, main Jquery -->	
     <script src="@{/assets/js/plugins.js}"></script>

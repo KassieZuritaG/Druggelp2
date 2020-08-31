@@ -1,10 +1,13 @@
 package com.ortizzurita.druggelp2.models.entities;
 
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
 import java.util.Calendar;
 
 import javax.persistence.Column;
 import javax.persistence.MappedSuperclass;
+import javax.persistence.PrePersist;
+import javax.persistence.PreUpdate;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 //import javax.validation.constraints.NotEmpty;
@@ -14,6 +17,8 @@ import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
 
 @MappedSuperclass
 public abstract class Persona {
@@ -54,6 +59,18 @@ public abstract class Persona {
 	
 	@Column(name = "imagen")
 	private String imagen;
+	
+	@Column(name = "creado_en")
+	private LocalDateTime creadoEn;
+
+	@Column(name = "creado_por")
+	private String creadoPor;
+
+	@Column(name = "modificado_en")
+	private LocalDateTime modificadoEn;
+
+	@Column(name = "modificado_por")
+	private String modificadoPor;
 
 	public Persona() {
 		super();
@@ -134,6 +151,38 @@ public abstract class Persona {
 	public void setImagen(String imagen) {
 		this.imagen = imagen;
 	}
+	
+	public LocalDateTime getCreadoEn() {
+		return creadoEn;
+	}
+
+	public void setCreadoEn(LocalDateTime creadoEn) {
+		this.creadoEn = creadoEn;
+	}
+
+	public String getCreadoPor() {
+		return creadoPor;
+	}
+
+	public void setCreadoPor(String creadoPor) {
+		this.creadoPor = creadoPor;
+	}
+
+	public LocalDateTime getModificadoEn() {
+		return modificadoEn;
+	}
+
+	public void setModificadoEn(LocalDateTime modificadoEn) {
+		this.modificadoEn = modificadoEn;
+	}
+
+	public String getModificadoPor() {
+		return modificadoPor;
+	}
+
+	public void setModificadoPor(String modificadoPor) {
+		this.modificadoPor = modificadoPor;
+	}
 
 	@Override
 	public String toString() {
@@ -152,4 +201,19 @@ public abstract class Persona {
 		
 		return "Hombre";		
 	}	
+	
+	@PrePersist
+	public void prePersist() {
+		creadoEn = LocalDateTime.now();
+		SecurityContext context = SecurityContextHolder.getContext();
+        creadoPor = context.getAuthentication().getName();
+	}
+
+	@PreUpdate
+	public void preUpdate() {
+		modificadoEn = LocalDateTime.now();
+		SecurityContext context = SecurityContextHolder.getContext();
+        modificadoPor = context.getAuthentication().getName();
+	}
+	
 }

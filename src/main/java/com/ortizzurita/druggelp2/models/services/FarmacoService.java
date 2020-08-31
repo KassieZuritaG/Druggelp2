@@ -39,4 +39,10 @@ public class FarmacoService implements IFarmacoService{
 		return (List<Farmaco>) dao.findAll();
 	}
 
+	@Override
+	@Transactional
+	public List<Farmaco> findByNombre(String nombre) {
+		return dao.findByNombreStartingWith(nombre);
+	}
+
 }

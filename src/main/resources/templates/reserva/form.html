@@ -1,21 +1,59 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/> 
+<head th:replace="layout :: frgCSS"></head>
+<header th:replace="layout :: frgheader"></header>
+
 <body>
-	<form id="frmReserva" class="contact-form-area ml-3 mr-3" th:object="${reserva}" th:action="@{/reserva/save}" method="post">
-		<hr>
-		<div class="row d-flex align-items-center" >
-			<div class="col-1" align="center">
-				<i class="fas fa-adjust"></i>
+<div class="top-popular-courses-area mt-100 section-padding-100-70">
+		<section class="contact-area mt-100">
+			<div class="container">
+				<div class="row">
+					<div class="col-12">
+						<div class="contact-content">
+							<div class="row">
+								<div class="col-12">
+									<h4 th:text="${title}"></h4>
+									<div class="contact-form-area wow fadeInUp" data-wow-delay="500ms">
+										<form th:action="@{/reserva/save}" th:object="${Reserva}" enctype="multipart/form-data" method="post">
+											<div class="row d-flex align-items-center" >
+												<div class="col-1" align="center">
+													<i class="fas fa-calendar"></i>												
+												</div>
+												<div class="col-5">
+													<!-- <input type="date" class="form-control" th:field="*{fechaRecerva}" th:errorclass="'form-control is-invalid'" placeholder="Fecha de Reserva" />
+													<small class="invalid-feedback" th:if="${#fields.hasErrors('fechaRecerva')}" th:errors="*{fechaRecerva}"></small>	 -->
+																																		
+												</div>
+											</div>	
+											<hr>
+											<button class="btn btn-sm academy-btn btn-3" id="btnAdd" data-toggle="modal" data-target="#modalMedicamento"><i class="fas fa-plus-circle"></i>&nbsp;Nuevo</button>
+											<div id="listMedicamentos"></div>
+											<div class="d-flex justify-content-end">
+												<button class="btn btn-sm academy-btn btn-3" type="submit">
+													<i class="fas fa-save"></i> &nbsp;Guardar
+												</button>
+												<button class="btn btn-sm academy-btn btn-2 ml-2"
+													type="reset">
+													<i class="fas fa-times"></i> &nbsp;Cancelar
+												</button>
+												<a th:href="@{/gira/list}"
+													class="btn btn-sm academy-btn btn-4 ml-2" type="reset"><i
+													class="fas fa-users"></i> &nbsp;Volver</a>
+											</div>
+											<input type="hidden" th:field="*{idreserva}" />
+										</form>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
 			</div>
-			<div class="col-5">
-				<input type="date" class="form-control" th:field="*{fechaRecerva}" th:errorclass="'form-control is-invalid'" placeholder="Fecha de Reserva" />
-				<small class="invalid-feedback" th:if="${#fields.hasErrors('fechaRecerva')}" th:errors="*{fechaRecerva}"></small>																
-			</div>
-		</div>	
-		
-		<input type="hidden" th:field="*{usuarioid}" />
-		<input type="hidden" th:field="*{idreserva}" />
-		
-	</form>
+		</section>
+	</div>
 </body>
+<div th:replace="layout :: frgFooter"></div>
+<div th:replace="layout :: frgScripts"></div>
+<script th:src="@{/assets/js/reserva/add-medicamento.js}"></script>
 </html>

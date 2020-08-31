@@ -10,4 +10,5 @@ public interface IFarmacoService {
 	public Farmaco findById(Integer id);
 	public void delete(Integer id);
 	public List<Farmaco> findAll();
+	public List<Farmaco> findByNombre(String nombre);
 }

@@ -2,6 +2,7 @@ package com.ortizzurita.druggelp2.models.entities;
 
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.List;
@@ -16,6 +17,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.PrePersist;
+import javax.persistence.PreUpdate;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -23,6 +26,10 @@ import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 
 @Entity
@@ -63,7 +70,23 @@ public class Farmaco implements Serializable{
 	
 	@Column(name = "imagen")
 	private String imagen;
+	
+	@JsonIgnore
+	@OneToMany(mappedBy="farmaco", fetch=FetchType.LAZY)
+	private List<Medicamento> medicamentos;
+	
+	@Column(name = "creado_en")
+	private LocalDateTime creadoEn;
 
+	@Column(name = "creado_por")
+	private String creadoPor;
+
+	@Column(name = "modificado_en")
+	private LocalDateTime modificadoEn;
+
+	@Column(name = "modificado_por")
+	private String modificadoPor;
+	
 	public Farmaco() {
 		super();
 	}
@@ -145,6 +168,38 @@ public class Farmaco implements Serializable{
 		this.farmacia = farmacia;
 	}
 
+	public LocalDateTime getCreadoEn() {
+		return creadoEn;
+	}
+
+	public void setCreadoEn(LocalDateTime creadoEn) {
+		this.creadoEn = creadoEn;
+	}
+
+	public String getCreadoPor() {
+		return creadoPor;
+	}
+
+	public void setCreadoPor(String creadoPor) {
+		this.creadoPor = creadoPor;
+	}
+
+	public LocalDateTime getModificadoEn() {
+		return modificadoEn;
+	}
+
+	public void setModificadoEn(LocalDateTime modificadoEn) {
+		this.modificadoEn = modificadoEn;
+	}
+
+	public String getModificadoPor() {
+		return modificadoPor;
+	}
+
+	public void setModificadoPor(String modificadoPor) {
+		this.modificadoPor = modificadoPor;
+	}
+
 	public List<DetalleReserva> getDetalleReserva() {
 		return detalleReserva;
 	}
@@ -181,4 +236,27 @@ public class Farmaco implements Serializable{
 	int dia=c.get(Calendar.DAY_OF_MONTH);
 	int mes=c.get(Calendar.MONTH);
 	int an=c.get(Calendar.YEAR);
+
+	public List<Medicamento> getMedicamentos() {
+		return medicamentos;
+	}
+
+	public void setMedicamentos(List<Medicamento> medicamentos) {
+		this.medicamentos = medicamentos;
+	}
+	
+	@PrePersist
+	public void prePersist() {
+		creadoEn = LocalDateTime.now();
+		SecurityContext context = SecurityContextHolder.getContext();
+        creadoPor = context.getAuthentication().getName();
+	}
+
+	@PreUpdate
+	public void preUpdate() {
+		modificadoEn = LocalDateTime.now();
+		SecurityContext context = SecurityContextHolder.getContext();
+        modificadoPor = context.getAuthentication().getName();
+	}
+	
 }

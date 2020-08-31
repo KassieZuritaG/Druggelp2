@@ -63,17 +63,20 @@ public class UsuarioController {
 				model.addAttribute("usuario", usuario);
 				return "usuario/form";
 			}
-			if (!image.isEmpty()) {				
+			if (!image.isEmpty()) 
+			{				
 				Path dir = Paths.get("src//main//resources//static//photos");
 				String rootPath = dir.toFile().getAbsolutePath();
-				try {
+				try 
+				{
 					byte[] bytes = image.getBytes();
 					Path rutaCompleta = Paths.get(rootPath + "//" + image.getOriginalFilename());
 					Files.write(rutaCompleta, bytes);
 					usuario.setImagen(image.getOriginalFilename());
 					flash.addFlashAttribute("success", "El usuario fue agregado con éxito.");
 
-				} catch (IOException e) {
+				} catch (IOException e) 
+				{
 					flash.addFlashAttribute("error", "El usuario no pudo ser agregado.");
 					e.printStackTrace();
 				}
