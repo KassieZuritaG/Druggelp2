@@ -2,6 +2,7 @@ package com.ortizzurita.druggelp2.models.entities;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Basic;
@@ -18,6 +19,10 @@ import javax.persistence.Table;
 
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+
 
 @Entity
 @Table(name="farmacias")
@@ -136,7 +141,13 @@ public class Farmacia implements Serializable{
 		return this.getNombre() + " " + this.getTelefono();
 	}
 	
-	@OneToMany(mappedBy="farmacia",fetch=FetchType.LAZY)
+	@JsonIgnore
+	@OneToMany(mappedBy="farmacia", fetch=FetchType.LAZY) 
+	private List<Articulo> articulos;
+	
+	
+	
+	/*@OneToMany(mappedBy="farmacia",fetch=FetchType.LAZY)
 		private List<Farmaco> farmacos;
 
 	public List<Farmaco> getFarmacos() {
@@ -145,8 +156,18 @@ public class Farmacia implements Serializable{
 
 	public void setFarmacos(List<Farmaco> farmacos) {
 		this.farmacos = farmacos;
-	}
+	}*/
 	
+	public List<Articulo> getArticulos() {
+		if(articulos == null)
+			articulos = new ArrayList<Articulo>();
+		return articulos;
+	}
+
+	public void setArticulos(List<Articulo> articulos) {
+		this.articulos = articulos;
+	}
+
 	@PrePersist
 	public void prePersist() {
 		creadoEn = LocalDateTime.now();

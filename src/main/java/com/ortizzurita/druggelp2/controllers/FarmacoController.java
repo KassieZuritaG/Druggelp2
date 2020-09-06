@@ -22,9 +22,9 @@ import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.ortizzurita.druggelp2.models.entities.Farmacia;
+
 import com.ortizzurita.druggelp2.models.entities.Farmaco;
-import com.ortizzurita.druggelp2.models.services.IFarmaciaService;
+//import com.ortizzurita.druggelp2.models.services.IFarmaciaService;
 import com.ortizzurita.druggelp2.models.services.IFarmacoService;
 
 @Controller
@@ -35,15 +35,15 @@ public class FarmacoController {
 	@Autowired
 	private IFarmacoService srvFarmaco;
 	
-	@Autowired
-	private IFarmaciaService srvFarmacia;
+	/*@Autowired
+	private IFarmaciaService srvFarmacia;*/
 	
 	@GetMapping(value="/create")
 	public String create(Model model) {
 		Farmaco farmaco = new Farmaco();
-		List<Farmacia> farmacias = this.srvFarmacia.findAll();
+		//List<Farmacia> farmacias = this.srvFarmacia.findAll();
 		model.addAttribute("title", "Registro de un nueva fármaco");
-		model.addAttribute("farmacias", farmacias); 
+		//model.addAttribute("farmacias", farmacias); 
 		model.addAttribute("farmaco", farmaco);
 		return "farmaco/form";
 	}
@@ -59,8 +59,8 @@ public class FarmacoController {
 	@GetMapping(value="/update/{id}")
 	public String update(@PathVariable(value="id") Integer id, Model model) {
 		Farmaco farmaco = this.srvFarmaco.findById(id);
-		List<Farmacia> farmacias = srvFarmacia.findAll();
-		model.addAttribute("farmacias", farmacias);
+		//List<Farmacia> farmacias = srvFarmacia.findAll();
+		//model.addAttribute("farmacias", farmacias);
 		model.addAttribute("farmaco", farmaco);
 		model.addAttribute("title", "Actualizando el registro de "+ farmaco.getNombre() +" - "+farmaco.fechaExp());
 		return "farmaco/form";

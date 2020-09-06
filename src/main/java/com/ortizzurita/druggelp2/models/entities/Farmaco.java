@@ -14,8 +14,8 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+/*import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;*/
 import javax.persistence.OneToMany;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
@@ -62,8 +62,8 @@ public class Farmaco implements Serializable{
 	@DateTimeFormat(pattern = "yyyy-MM-dd")	
 	private Calendar fechaExpiracion;
 	
-	@Column(name="cantidad")
-	private Integer cantidad;
+	/*@Column(name="cantidad")
+	private Integer cantidad;*/
 	
 	@Column(name="tipo_medicamento")
 	private String tipoMedicamento;
@@ -136,13 +136,13 @@ public class Farmaco implements Serializable{
 		this.fechaExpiracion = fechaExpiracion;
 	}
 
-	public Integer getCantidad() {
+	/*public Integer getCantidad() {
 		return cantidad;
 	}
 
 	public void setCantidad(Integer cantidad) {
 		this.cantidad = cantidad;
-	}
+	}*/
 	
 	public String getTipoMedicamento() {
 		return tipoMedicamento;
@@ -158,14 +158,6 @@ public class Farmaco implements Serializable{
 
 	public void setImagen(String imagen) {
 		this.imagen = imagen;
-	}
-
-	public Farmacia getFarmacia() {
-		return farmacia;
-	}
-
-	public void setFarmacia(Farmacia farmacia) {
-		this.farmacia = farmacia;
 	}
 
 	public LocalDateTime getCreadoEn() {
@@ -225,10 +217,31 @@ public class Farmaco implements Serializable{
 		return sdf.format(fechaFabricacion.getTime());
 	}
 	
-	@JoinColumn(name="fk_farmacia", referencedColumnName="pk_farmacia")
+	@JsonIgnore
+	@OneToMany(mappedBy="farmaco", fetch=FetchType.LAZY) 
+	private List<Articulo> articulos;
+	
+	public List<Articulo> getArticulos() {
+		return articulos;
+	}
+
+	public void setArticulos(List<Articulo> articulos) {
+		this.articulos = articulos;
+	}
+	
+	/*@JoinColumn(name="fk_farmacia", referencedColumnName="pk_farmacia")
 	@ManyToOne
 	private  Farmacia farmacia;
 	
+		public Farmacia getFarmacia() {
+		return farmacia;
+	}
+
+	public void setFarmacia(Farmacia farmacia) {
+		this.farmacia = farmacia;
+	}
+	*/
+
 	@OneToMany(mappedBy="farmaco",fetch=FetchType.LAZY)
 	private List<DetalleReserva> detalleReserva;
 	

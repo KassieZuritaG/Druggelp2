@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/> 
+<body>
+
+	<table class="table table-hover">
+		<thead class="bg-light">
+			<tr>
+				<th><i class="far fa-address-card"></i>&nbsp;Articulo</th>
+				<th><i class="far fa-address-card"></i>&nbsp;Nombre</th>
+				<th><i class="fas fa-user-tie"></i>&nbsp;Costo</th>
+				<th><i class="fas fa-user-tie"></i>&nbsp;Cantidad</th>
+				<th><i class="fas fa-user-tie"></i>&nbsp;Subtotal</th>
+		
+				<th></th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr th:each="ar : ${articulos}">
+				<td th:text="${ar.farmaco.imagen}"></td>
+				<td th:text="${ar.farmaco.nombre}"></td>
+				<td th:text="${ar.farmaco.costo}"></td>
+				<td th:text="${ar.cantidad}"></td>
+				<td th:text="${ar.subtotal}"></td>
+				<td>
+					<button th:onclick="|onDelete(${ar.idarticulo});|"
+						class="btn btn-xs academy-btn btn-4">
+						<i class="fas fa-trash-alt"></i>
+					</button>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+
+
+
+</body>
+</html>

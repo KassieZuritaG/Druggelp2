@@ -1,6 +1,10 @@
 package com.ortizzurita.druggelp2.controllers;
 
+import java.util.ArrayList;
 import java.util.List;
+
+import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -10,13 +14,19 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.ortizzurita.druggelp2.models.entities.Articulo;
 import com.ortizzurita.druggelp2.models.entities.Farmacia;
+import com.ortizzurita.druggelp2.models.entities.Farmaco;
 import com.ortizzurita.druggelp2.models.services.IFarmaciaService;
+import com.ortizzurita.druggelp2.models.services.IFarmacoService;
+
 
 @Controller
 @SessionAttributes("farmacia")
@@ -26,9 +36,14 @@ public class FarmaciaController {
 	@Autowired
 	private IFarmaciaService srvFarmacia;
 	
+	@Autowired
+	private IFarmacoService srvFarmaco;
+	
 	@GetMapping(value="/create")
 	public String create(Model model) {
 		Farmacia farmacia = new Farmacia();
+		farmacia.setArticulos(new ArrayList<Articulo>());
+		
 		model.addAttribute("title", "Registro de nueva farmacia");
 		model.addAttribute("farmacia", farmacia);
 		return "farmacia/form";
@@ -65,14 +80,14 @@ public class FarmaciaController {
 	}
 	
 	@PostMapping(value="/save") 
-	public String save(@Validated Farmacia farmacia, SessionStatus status, BindingResult result, Model model, RedirectAttributes flash) {
+	public String save(@Validated Farmacia farmacia, SessionStatus status, BindingResult result, Model model, RedirectAttributes flash, HttpSession session) {
 		try {
 			String message = "Farmacia agregada correctamente";
 			String titulo = "Nuevo registro de Farmacia";
 			
 			if(farmacia.getIdfarmacia() != null) {
 				message = "Farmacia actualizada correctamente";
-				titulo = "Actualizando el registro de " + farmacia;
+				titulo = "Actualizando el registro de " + farmacia.getNombre();
 			}
 			
 			if(result.hasErrors()) {
@@ -80,6 +95,13 @@ public class FarmaciaController {
 				model.addAttribute("farmacia", farmacia);
 				return "farmacia/form";
 				}
+			
+			Farmacia farmaciaSession = (Farmacia) session.getAttribute("Farmacia");
+			for(Articulo ar : farmaciaSession.getArticulos()) {
+				farmacia.getArticulos().add(ar);
+				
+			}
+			
 			srvFarmacia.save(farmacia);
 			status.setComplete();
 			flash.addFlashAttribute("success", message);
@@ -89,5 +111,28 @@ public class FarmaciaController {
 		}
 		
 		return "redirect:/farmacia/list";
+	}
+	
+	@PostMapping(value = "/add", produces="application/json")
+	public @ResponseBody Object add(@RequestBody @Valid Articulo articulo, 
+			BindingResult result, Model model, HttpSession session) {				
+		try {
+			Farmaco farmaco =this.srvFarmaco.findById(articulo.getFarmacoid());
+			articulo.setFarmaco(farmaco);
+			Farmacia farmacia=(Farmacia) session.getAttribute("Farmacia");
+			farmacia.getArticulos().add(articulo);
+			return articulo;
+		} catch (Exception ex) {			
+			return ex;
+		}		
+	}
+	
+	@GetMapping(value = "/items")
+	public String items(Model model, HttpSession session) {
+		//Farmacia farmacia = (Farmacia) session.getAttribute("farmacia");
+		Farmacia farmacia = (Farmacia) session.getAttribute("Farmacia");
+		model.addAttribute("articulos", farmacia.getArticulos());		
+		model.addAttribute("title", "Listado de articulos");
+		return "articulo/list";
 	}
 }
