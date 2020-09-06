@@ -71,7 +71,7 @@ public class Farmaco implements Serializable{
 	@Column(name = "imagen")
 	private String imagen;
 	
-	@JsonIgnore
+	//@JsonIgnore
 	@OneToMany(mappedBy="farmaco", fetch=FetchType.LAZY)
 	private List<Medicamento> medicamentos;
 	
@@ -241,7 +241,7 @@ public class Farmaco implements Serializable{
 		this.farmacia = farmacia;
 	}
 	*/
-
+	@JsonIgnore
 	@OneToMany(mappedBy="farmaco",fetch=FetchType.LAZY)
 	private List<DetalleReserva> detalleReserva;
 	

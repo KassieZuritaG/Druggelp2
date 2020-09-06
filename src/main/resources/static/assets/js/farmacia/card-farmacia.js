@@ -10,12 +10,12 @@ function onDelete(id){
 				  cancelButtonText: 'Cancelar'
 				}).then((result) => {
 				  if (result.value) {
-				    eliminar(id)
+					  deleteFarmacia(id)
 				  }
 				})
 }
 
-function eliminar(id) {
+function deleteFarmacia(id) {
 	$.ajax({
 		url : "/farmacia/delete/" + id,
 		method : 'GET',

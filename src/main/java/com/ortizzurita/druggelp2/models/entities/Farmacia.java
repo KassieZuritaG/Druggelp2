@@ -145,7 +145,15 @@ public class Farmacia implements Serializable{
 	@OneToMany(mappedBy="farmacia", fetch=FetchType.LAZY) 
 	private List<Articulo> articulos;
 	
-	
+	public List<Articulo> getArticulos() {
+		if(articulos == null)
+			articulos = new ArrayList<Articulo>();
+		return articulos;
+	}
+
+	public void setArticulos(List<Articulo> articulos) {
+		this.articulos = articulos;
+	}
 	
 	/*@OneToMany(mappedBy="farmacia",fetch=FetchType.LAZY)
 		private List<Farmaco> farmacos;
@@ -158,15 +166,6 @@ public class Farmacia implements Serializable{
 		this.farmacos = farmacos;
 	}*/
 	
-	public List<Articulo> getArticulos() {
-		if(articulos == null)
-			articulos = new ArrayList<Articulo>();
-		return articulos;
-	}
-
-	public void setArticulos(List<Articulo> articulos) {
-		this.articulos = articulos;
-	}
 
 	@PrePersist
 	public void prePersist() {

@@ -83,8 +83,6 @@ function save(){
 }
 
 
-
-
 //document
 
 $(document).ready(function(){

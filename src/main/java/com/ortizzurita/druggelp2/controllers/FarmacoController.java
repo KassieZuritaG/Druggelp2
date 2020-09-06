@@ -81,7 +81,7 @@ public class FarmacoController {
 	}
 	
 	@PostMapping(value="/save") 
-	public String save(@Validated Farmaco farmacos, BindingResult result, Model model,
+	public String save(@Validated Farmaco farmaco, BindingResult result, Model model,
 			@RequestParam("photo") MultipartFile image,
 			SessionStatus status, RedirectAttributes flash) {
 		try {
@@ -89,15 +89,18 @@ public class FarmacoController {
 			String message = "Fármaco agregado correctamente";
 			String titulo = "Nuevo registro de fármaco";
 			
-			if(farmacos.getIdfarmaco() != null) {
+			if(farmaco.getIdfarmaco() != null) {
 				message = "Fármaco actualizado correctamente";
-				titulo = "Actualizando el registro de " + farmacos;
+				titulo = "Actualizando el registro de " + farmaco;
 			}
 			
 			if(result.hasErrors()) {
-				model.addAttribute("title", "Error al registrar una nuevo fármaco");
-				model.addAttribute("farmacos", farmacos);
-				return "farmaco/form";
+				model.addAttribute("title", titulo);							
+				return "farmaco/form";	
+				
+				//model.addAttribute("title", "Error al registrar una nuevo fármaco");
+				//model.addAttribute("farmacos", farmaco);
+				//return "farmaco/form";
 			}
 			if (!image.isEmpty()) {				
 				Path dir = Paths.get("src//main//resources//static//photos");
@@ -106,14 +109,14 @@ public class FarmacoController {
 					byte[] bytes = image.getBytes();
 					Path rutaCompleta = Paths.get(rootPath + "//" + image.getOriginalFilename());
 					Files.write(rutaCompleta, bytes);
-					farmacos.setImagen(image.getOriginalFilename());
+					farmaco.setImagen(image.getOriginalFilename());
 
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
 			}
 			
-			this.srvFarmaco.save(farmacos);
+			this.srvFarmaco.save(farmaco);
 			status.setComplete();
 			flash.addFlashAttribute("success", message);
 		}catch(Exception ex) {

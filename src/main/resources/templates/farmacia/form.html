@@ -16,9 +16,91 @@
 									<br><br>
 									<div class="contact-form-area wow fadeInUp"
 										data-wow-delay="500ms">
-										<form th:action="@{/farmacia/save}" th:object="${farmacia}" enctype="multipart/form-data" method="post">
 										
-											<div class="row d-flex align-items-center" >
+										<form th:action="@{/farmacia/save}" th:object="${Farmacia}"
+											enctype="multipart/form-data" method="post">
+											
+											
+											
+											<div class="row d-flex align-items-center">
+												<div class="col-1">
+													<i class="fas fa-clipboard fa-2x"></i>
+												</div>
+												<div class="col-5">
+													<input type="text" class="form-control"
+														th:field="*{nombre}"
+														th:errorclass="'form-control is-invalid'"
+														placeholder="Nombre de la Farmacia" /> 
+													<small class="invalid-feedback"
+														th:if="${#fields.hasErrors('nombre')}"
+														th:errors="*{nombre}"></small>
+												</div>
+												
+												<div class="col-1">
+													<i class="fas fa-phone fa-2x"></i>
+												</div>
+												<div class="col-5">
+													<input type="text" class="form-control"
+														th:field="*{telefono}"
+														th:errorclass="'form-control is-invalid'"
+														placeholder="Telefono" /> 
+													<small class="invalid-feedback"
+														th:if="${#fields.hasErrors('telefono')}"
+														th:errors="*{telefono}"></small>
+												</div>
+											</div>
+											
+											
+											<div class="row d-flex align-items-center">
+												<div class="col-1">
+													<i class="fas fa-map-marker-alt fa-2x"></i>
+												</div>
+												<div class="col-5">
+													<input type="text" class="form-control"
+														th:field="*{direccion}"
+														th:errorclass="'form-control is-invalid'"
+														placeholder="Dirección Farmacia" /> 
+													<small class="invalid-feedback"
+														th:if="${#fields.hasErrors('direccion')}"
+														th:errors="*{direccion}"></small>
+												</div>
+												
+												
+											</div>
+											
+											<hr>											
+											<div class="d-flex justify-content-end">
+												<button class="btn btn-sm academy-btn btn-3" type="submit">
+													<i class="fas fa-save"></i> &nbsp;Guardar
+												</button>
+												<button class="btn btn-sm academy-btn btn-2 ml-2"
+													type="reset">
+													<i class="fas fa-times"></i> &nbsp;Cancelar
+												</button>
+												<a th:href="@{/farmacia/list}"
+													class="btn btn-sm academy-btn btn-4 ml-2" type="reset"><i
+													class="fas fa-users"></i> &nbsp;Volver</a>
+											</div>
+											<input type="hidden" th:field="*{idfarmacia}" />
+										</form>
+										
+										
+										
+										
+										
+										
+										
+										
+										
+										
+										
+										
+										
+										
+										
+										<!--<form th:action="@{/farmacia/save}" th:object="${farmacia}" enctype="multipart/form-data" method="post">
+										
+											  <div class="row d-flex align-items-center" >
 												<div class="col-1" align="center">											
 													<i class="fas fa-hospital"></i>												
 												</div>
@@ -46,13 +128,13 @@
 												</div>
 											</div>
 											<br><br>
-											<div class="d-flex justify-content-end">																						
+											<div class="d-flex justify-content-end">	
 												<button class="btn btn-success btn-lg active"  type="submit"><i class="fas fa-save"></i> &nbsp;Guardar</button>&nbsp;&nbsp;
 												<button class="btn btn-primary btn-lg active" type="reset"><i class="fas fa-times"></i> &nbsp;Cancelar</button>&nbsp;&nbsp;
 												<a th:href="@{/farmacia/list}" class="btn btn-info btn-lg active" type="reset"><i class="fas fa-hospital"></i> &nbsp;Volver</a>
 											</div>
 											<input type="hidden" th:field="*{idfarmacia}" />	
-										</form>
+										</form>-->
 										
 										<br>
 										<div class="row">
@@ -102,6 +184,7 @@
 </body>
 <div th:replace="layout :: frgFooter"></div>
 <div th:replace="layout :: frgScripts"></div>
-
 <script th:src="@{/assets/js/farmacia/add-articulo.js}"></script>
+<!-- revisar esta linea -->
+<!--<script th:src="@{/assets/js/farmacia/card-farmacia.js}"></script>-->
 </html>
