@@ -6,7 +6,7 @@ import org.springframework.data.repository.CrudRepository;
 
 import com.ortizzurita.druggelp2.models.entities.Farmaco;
 
-public interface IFarmaco extends CrudRepository<Farmaco, Integer>{
+public interface IFarmaco extends CrudRepository<Farmaco, Integer>{	
 	
 	public List<Farmaco> findByNombreStartingWith(String nombre);
 	

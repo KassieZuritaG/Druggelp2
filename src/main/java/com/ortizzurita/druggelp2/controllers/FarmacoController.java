@@ -35,6 +35,7 @@ public class FarmacoController {
 	@Autowired
 	private IFarmacoService srvFarmaco;
 	
+
 	/*@Autowired
 	private IFarmaciaService srvFarmacia;*/
 	
@@ -72,7 +73,7 @@ public class FarmacoController {
 		return "redirect:/farmaco/list";
 	}
 	
-	@GetMapping(value= {"/","/list"})
+	@GetMapping(value= "/list")
 	public String list(Model model) {
 		List<Farmaco> farmacos = this.srvFarmaco.findAll();
 		model.addAttribute("farmacos", farmacos);
@@ -116,6 +117,7 @@ public class FarmacoController {
 				}
 			}
 			
+
 			this.srvFarmaco.save(farmaco);
 			status.setComplete();
 			flash.addFlashAttribute("success", message);
@@ -124,12 +126,11 @@ public class FarmacoController {
 		}
 		
 		return "redirect:/farmaco/list";
-	}
+	}	
 	
 	@GetMapping(value="/search/{criteria}", produces="application/json")
 	public @ResponseBody List<Farmaco> search(@PathVariable(value="criteria") String criteria, Model model) {
-		List<Farmaco> lista = this.srvFarmaco.findByNombre(criteria);	
+		List<Farmaco> lista = this.srvFarmaco.findByNombre(criteria);
 		return lista;		
 	}
-	
 }

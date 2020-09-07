@@ -34,7 +34,7 @@ public class SpringSecurityConfiguration extends WebSecurityConfigurerAdapter{
 	@Override //Autorization
 	protected void configure(HttpSecurity http) throws Exception {
 		http.authorizeRequests()
-			.antMatchers("/","/assets/**","/Doc/**","/js/**","/shop").permitAll()
+			.antMatchers("/","/assets/**","/Doc/**","/js/**","/shop","/css","/photos").permitAll()
 			.antMatchers("/usuario/create").anonymous()
 			.antMatchers("/usuario/form").anonymous()
 			.antMatchers("/usuario/save").anonymous()
@@ -42,6 +42,12 @@ public class SpringSecurityConfiguration extends WebSecurityConfigurerAdapter{
 			.antMatchers("/administrador/**").hasAnyRole("ADMIN")
 			.antMatchers("/farmacia/**").hasAnyRole("ADMIN")
 			.antMatchers("/farmaco/**").hasAnyRole("ADMIN")
+			.antMatchers("/reserva/**").hasAnyRole("ADMIN")
+			.antMatchers("/reserva/**").hasAnyRole("USER")
+			.antMatchers("/medicamento/**").hasAnyRole("ADMIN")
+			.antMatchers("/reserva/**").hasAnyRole("USER")
+			.antMatchers("/detallereserva/**").hasAnyRole("ADMIN")
+			.antMatchers("/detallereserva/**").hasAnyRole("USER")
 			.antMatchers("/h2-console/**").hasAnyRole("USER")
 			.anyRequest().authenticated()
 			.and().formLogin().successHandler(handler).loginPage("/login").permitAll()			

@@ -29,8 +29,6 @@ import com.ortizzurita.druggelp2.models.reporting.RptFarmacoPrecio;
 import com.ortizzurita.druggelp2.models.services.IFarmaciaService;
 import com.ortizzurita.druggelp2.models.services.IFarmacoService;
 
-
-
 @Controller
 @SessionAttributes("Farmacia")
 //@SessionAttributes("farmacia")
@@ -43,6 +41,7 @@ public class FarmaciaController {
 	@Autowired
 	private IFarmacoService srvFarmaco;
 	
+
 	@GetMapping(value = "/create") // https://localhost:8080/usuarios/create
 	public String create(Model model) {
 		Farmacia farmacia=new Farmacia();
@@ -196,6 +195,7 @@ public class FarmaciaController {
 		return "farmacia/card";
 	}
 	
+
 	/*@GetMapping(value="/retrieve/{id}")
 	public String retrieve(@PathVariable(value="id") Integer id, Model model) {
 		Farmacia farmacia = srvFarmacia.findById(id);
@@ -287,7 +287,5 @@ public class FarmaciaController {
 			return null;
 		}		
 	}
-	
-	
 	
 }

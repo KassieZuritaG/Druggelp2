@@ -87,6 +87,10 @@ public class Farmaco implements Serializable{
 	@Column(name = "modificado_por")
 	private String modificadoPor;
 	
+	@JsonIgnore
+	@OneToMany(mappedBy="medicamento", fetch=FetchType.LAZY) 
+	private List<DetalleReserva> medicamentos;
+	
 	public Farmaco() {
 		super();
 	}
@@ -191,13 +195,13 @@ public class Farmaco implements Serializable{
 	public void setModificadoPor(String modificadoPor) {
 		this.modificadoPor = modificadoPor;
 	}
-
-	public List<DetalleReserva> getDetalleReserva() {
-		return detalleReserva;
+	
+	public List<DetalleReserva> getMedicamentos() {
+		return medicamentos;
 	}
 
-	public void setDetalleReserva(List<DetalleReserva> detalleReserva) {
-		this.detalleReserva = detalleReserva;
+	public void setMedicamentos(List<DetalleReserva> medicamentos) {
+		this.medicamentos = medicamentos;
 	}
 
 	@Override
@@ -271,5 +275,7 @@ public class Farmaco implements Serializable{
 		SecurityContext context = SecurityContextHolder.getContext();
         modificadoPor = context.getAuthentication().getName();
 	}
+	
+	
 	
 }

@@ -1,20 +1,20 @@
 function searchByNombre(){
 	var criteria = $("#txtNombre").val();
 	$.ajax({
-		url : "/farmaco/search/" + criteria,		
+		url : "/farmaco/search/" + criteria,
 		method : 'GET',
 		success : function(response){
-			$("#medicamentoid").empty();	
+			$("#farmacoid").empty();			
 			var count = Object.keys(response).length;			
 			if(count > 0){								
-				$("#medicamentoid").addClass('visible').removeClass('invisible');
-				$.each( response, function(index, farmaco ) {					
-					$("#medicamentoid").append("<option value='"+ farmaco.idfarmaco +"'>" + farmaco.nombre + " | Disponible: "+ farmaco.cantidad + " | Costo: "+ farmaco.costo+"</option>");					
+				$("#farmacoid").addClass('visible').removeClass('invisible');
+				$.each( response, function(index, alumno ) {					
+					$("#farmacoid").append("<option value='"+ farmaco.idfarmaco+"'>" + farmaco.costo + "</option>");					
 				});
 			}
 			else{
-				$("#medicamentoid").addClass('invisible').removeClass('visible');
-				console.log("No hay farmacos ingresado con el nombre: " + criteria);				
+				$("#farmacoid").addClass('invisible').removeClass('visible');
+				console.log("No hay fármacos registrados con el nombre: " + criteria);				
 			}			
 		},
 		error : function(err){
@@ -25,7 +25,7 @@ function searchByNombre(){
 
 function create(){		
 	$.ajax({
-		url : "/detallereserva/create",
+		url : "/medicamento/create",
 		method : 'GET',
 		success : function(response){
 			console.log(response);
@@ -38,18 +38,18 @@ function create(){
 	});
 }
 
-function list(){
+function list(){	
 	$.ajax({
-		url: "/reserva/pills/",
-		method: 'GET',
-		success: function(response){
+		url : "/farmacia/medicamentos/",
+		method : 'GET',
+		success : function(response){
 			$("#listMedicamentos").empty();
 			$("#listMedicamentos").html(response);
 		},
-		error: function(err){
+		error : function(err){
 			console.log(err);
-		}
-	})
+		}		
+	});	
 }
 
 function save(){	
@@ -57,7 +57,7 @@ function save(){
 	var requestBody = JSON.stringify(dataForm);
 	console.log(requestBody);			
 	$.ajax({
-		url : "/reserva/add",
+		url : developURL + "farmacia/add",
 		method : 'POST',
 		contentType : "application/json",
 		headers: {"X-CSRF-TOKEN": $("input[name='_csrf']").val()},		
@@ -74,13 +74,15 @@ function save(){
 }
 
 $(document).ready(function(){
-		list();
+	
+	list();
+	
+	$("#btnAdd").click(function(){
+		create();		
+	});
+	
+	$("#btnSubmit").click(function(){
+		save();		
+	});
 		
-		$("#btnAdd").click(function(){
-			create();		
-		});
-		
-		$("#btnSubmit").click(function(){
-			save();		
-		});
-})
+});

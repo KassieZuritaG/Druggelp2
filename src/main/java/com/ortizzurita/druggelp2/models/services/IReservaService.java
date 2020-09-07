@@ -14,4 +14,5 @@ public interface IReservaService {
 	public List<Reserva> findByUsuario(Integer id);
 	//comentar la linea de codigo de abajo
 	//public List<RptReservaUsuario> rptReservaUsuario();
+
 }
