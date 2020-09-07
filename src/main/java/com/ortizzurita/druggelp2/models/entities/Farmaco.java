@@ -62,18 +62,15 @@ public class Farmaco implements Serializable{
 	@DateTimeFormat(pattern = "yyyy-MM-dd")	
 	private Calendar fechaExpiracion;
 	
-	/*@Column(name="cantidad")
-	private Integer cantidad;*/
-	
 	@Column(name="tipo_medicamento")
 	private String tipoMedicamento;
 	
 	@Column(name = "imagen")
 	private String imagen;
 	
-	//@JsonIgnore
+	@JsonIgnore
 	@OneToMany(mappedBy="farmaco", fetch=FetchType.LAZY)
-	private List<Medicamento> medicamentos;
+	private List<Medicamento> medicamentos;	
 	
 	@Column(name = "creado_en")
 	private LocalDateTime creadoEn;
@@ -135,14 +132,6 @@ public class Farmaco implements Serializable{
 	public void setFechaExpiracion(Calendar fechaExpiracion) {
 		this.fechaExpiracion = fechaExpiracion;
 	}
-
-	/*public Integer getCantidad() {
-		return cantidad;
-	}
-
-	public void setCantidad(Integer cantidad) {
-		this.cantidad = cantidad;
-	}*/
 	
 	public String getTipoMedicamento() {
 		return tipoMedicamento;
@@ -192,14 +181,6 @@ public class Farmaco implements Serializable{
 		this.modificadoPor = modificadoPor;
 	}
 
-	public List<DetalleReserva> getDetalleReserva() {
-		return detalleReserva;
-	}
-
-	public void setDetalleReserva(List<DetalleReserva> detalleReserva) {
-		this.detalleReserva = detalleReserva;
-	}
-
 	@Override
 	public String toString() {
 		return this.getNombre() + " " + this.getTipoMedicamento();
@@ -229,26 +210,13 @@ public class Farmaco implements Serializable{
 		this.articulos = articulos;
 	}
 	
-	/*@JoinColumn(name="fk_farmacia", referencedColumnName="pk_farmacia")
-	@ManyToOne
-	private  Farmacia farmacia;
 	
-		public Farmacia getFarmacia() {
-		return farmacia;
-	}
+	
+	
+	
+	
+	
 
-	public void setFarmacia(Farmacia farmacia) {
-		this.farmacia = farmacia;
-	}
-	*/
-	@JsonIgnore
-	@OneToMany(mappedBy="farmaco",fetch=FetchType.LAZY)
-	private List<DetalleReserva> detalleReserva;
-	
-	Calendar c=new GregorianCalendar();
-	int dia=c.get(Calendar.DAY_OF_MONTH);
-	int mes=c.get(Calendar.MONTH);
-	int an=c.get(Calendar.YEAR);
 
 	public List<Medicamento> getMedicamentos() {
 		return medicamentos;
@@ -271,5 +239,7 @@ public class Farmaco implements Serializable{
 		SecurityContext context = SecurityContextHolder.getContext();
         modificadoPor = context.getAuthentication().getName();
 	}
+	
+	
 	
 }

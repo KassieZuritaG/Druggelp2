@@ -24,36 +24,92 @@
 													<!-- <input type="date" class="form-control" th:field="*{fechaRecerva}" th:errorclass="'form-control is-invalid'" placeholder="Fecha de Reserva" />
 													<small class="invalid-feedback" th:if="${#fields.hasErrors('fechaRecerva')}" th:errors="*{fechaRecerva}"></small>	 -->
 																																		
+													<h4 id="date"></h4>
 												</div>
+												<div class="col-1" align="center">
+													<i class="fas fa-hashtag"></i>											
+												</div>
+												<div class="col-5">
+												<h4 id="codReserva"></h4>															
+												</div>												
 											</div>	
 											<hr>
-											<button class="btn btn-sm academy-btn btn-3" id="btnAdd" data-toggle="modal" data-target="#modalMedicamento"><i class="fas fa-plus-circle"></i>&nbsp;Nuevo</button>
-											<div id="listMedicamentos"></div>
-											<div class="d-flex justify-content-end">
-												<button class="btn btn-sm academy-btn btn-3" type="submit">
-													<i class="fas fa-save"></i> &nbsp;Guardar
-												</button>
-												<button class="btn btn-sm academy-btn btn-2 ml-2"
-													type="reset">
-													<i class="fas fa-times"></i> &nbsp;Cancelar
-												</button>
-												<a th:href="@{/gira/list}"
-													class="btn btn-sm academy-btn btn-4 ml-2" type="reset"><i
-													class="fas fa-users"></i> &nbsp;Volver</a>
-											</div>
 											<input type="hidden" th:field="*{idreserva}" />
+											<div class="d-flex justify-content-end">																						
+												<button class="btn btn-success btn-lg active"  type="submit"><i class="fas fa-save"></i> &nbsp;Guardar</button>&nbsp;&nbsp;
+												<button class="btn btn-primary btn-lg active" type="reset"><i class="fas fa-times"></i> &nbsp;Cancelar</button>&nbsp;&nbsp;
+												<a th:href="@{/reserva/create}" class="btn btn-info btn-lg active" type="reset"><i class="far fa-bookmark"></i> &nbsp;Volver</a>
+											</div>							
 										</form>
+										<br>
+										<hr>
+										<div class="row">
+											<div class="col-10">
+												<h4>Fármacos</h4>												
+											</div>
+											<div class="col-2">										
+												<button class="btn btn-warning btn-lg active" id="btnAdd" data-toggle="modal" data-target="#modalMedicamento"><i class="fas fa-plus-circle"></i>&nbsp;Nuevo</button>
+											</div>										
+										</div>										
+										<div id="listMedicamentos"></div>
 									</div>
 								</div>
 							</div>
-						</div>
-					</div>
-				</div>
 			</div>
 		</section>
 	</div>
+	
+	<!-- Modal de farmacos -->
+	<div class="modal fade" id="modalMedicamento" tabindex="-1" role="dialog"
+		aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title">Agregar Fármacos</h5>
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body contact-area contact-content-modal" id="contentFrmMedicamento">
+				</div>
+				<div class="modal-footer">
+					<button id="btnSubmit" type="button" class="btn btn-sm academy-btn btn-3" data-dismiss="modal">Guardar</button>
+					<button type="button" class="btn btn-sm academy-btn btn-2"
+						data-dismiss="modal">Cancelar</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	
 </body>
 <div th:replace="layout :: frgFooter"></div>
 <div th:replace="layout :: frgScripts"></div>
 <script th:src="@{/assets/js/reserva/add-medicamento.js}"></script>
+<script>
+n =  new Date();
+//Año
+y = n.getFullYear();
+//Mes
+m = n.getMonth() + 1;
+//Día
+d = n.getDate();
+
+document.getElementById("date").innerHTML = d + "/" + m + "/" + y;
+
+
+function makeid(length) {
+	   var result           = '';
+	   var characters       = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+	   var charactersLength = characters.length;
+	   for ( var i = 0; i < length; i++ ) {
+	      result += characters.charAt(Math.floor(Math.random() * charactersLength));
+	   }
+	   return result;
+	}
+
+document.getElementById("codReserva").innerHTML = makeid(8);
+
+</script>
 </html>

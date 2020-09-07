@@ -21,6 +21,8 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.ortizzurita.druggelp2.models.entities.DetalleReserva;
 import com.ortizzurita.druggelp2.models.entities.Farmaco;
 import com.ortizzurita.druggelp2.models.entities.Medicamento;
 import com.ortizzurita.druggelp2.models.entities.Reserva;
@@ -42,7 +44,7 @@ public class ReservaController {
 	@GetMapping(value="/create")
 	public String create(Model model) {
 		Reserva reserva = new Reserva();
-		reserva.setMedicamentos(new ArrayList<Medicamento>());
+		reserva.setFarmacos(new ArrayList<DetalleReserva>());
 		model.addAttribute("title", "Agrega medicamentos para reservarlos");
 		model.addAttribute("Reserva", reserva);		
 		return "reserva/form";
@@ -71,30 +73,57 @@ public class ReservaController {
 	
 	@GetMapping(value="/list/{id}")
 	public String list(@PathVariable(value="id") Integer id, Model model) {
-		List<Reserva> reservas = this.srvReserva.findByUsuario(id);
+		List<Reserva> reservas = this.srvReserva.findAll();
 		model.addAttribute("reservas", reservas);		
 		return "reserva/list";
 	}
 	
-	
-	@PostMapping(value = "/save")
-	public String save(@Validated Reserva reserva, BindingResult result, Model model, SessionStatus status, RedirectAttributes flash) {				
-		try {														
-			return "reserva/list";
-		} catch (Exception ex) {			
-			return "reserva/form";
-		}		
+	@PostMapping(value = "/save") // https://localhost:8080/usuarios/save
+	public String save(@Validated Reserva reserva, BindingResult result, Model model, SessionStatus status, RedirectAttributes flash, HttpSession session) {
+		try {
+			
+			String message = "Reserva agregada con exito";
+			String titulo = "Registro de un nueva Reserva";
+			
+			if(reserva.getIdreserva() != null) {
+				message = "Reserva actualizada con exito";
+				titulo = "Actualizando Reserva N°" + reserva.getIdreserva();
+			}
+			
+			if(result.hasErrors()) {
+				model.addAttribute("title",titulo);
+				model.addAttribute("error", "Error agregar reserva");
+				return "reserva/form";
+			}
+			
+			Reserva reservaSession = (Reserva) session.getAttribute("Reserva");
+			for(DetalleReserva dr : reservaSession.getFarmacos()) {
+				reserva.getFarmacos().add(dr);
+			}
+			this.srvReserva.save(reserva);
+			status.setComplete();
+			flash.addFlashAttribute("success", message);
+		}
+		catch(Exception ex) {
+			flash.addFlashAttribute("success", ex.getMessage());
+		}
+		return "redirect:/reserva/create";		
 	}
 	
+	
+	
+	
+	
+	
 	@PostMapping(value="/add", produces="application/json")
-	public @ResponseBody Object add(@RequestBody @Valid Medicamento medicamento,
+	public @ResponseBody Object add(@RequestBody @Valid DetalleReserva detalle,
 			BindingResult result, Model model, HttpSession session){
 		try {
-			Farmaco farmaco = this.srvFarmaco.findById(medicamento.getFarmacoid());
-			medicamento.setFarmaco(farmaco);
+			Farmaco farmaco = this.srvFarmaco.findById(detalle.getMedicamentoid());
+			detalle.setMedicamento(farmaco);
 			Reserva reserva = (Reserva) session.getAttribute("Reserva");
-			reserva.getMedicamentos().add(medicamento);
-			return medicamento;
+			reserva.getFarmacos().add(detalle);
+			return detalle;
 		}
 		catch(Exception ex){
 			return ex;
@@ -104,9 +133,9 @@ public class ReservaController {
 	@GetMapping(value="/pills")
 	public String pills(Model model, HttpSession session) {
 		Reserva reserva = (Reserva) session.getAttribute("Reserva");
-		model.addAttribute("pills", reserva.getMedicamentos());
+		model.addAttribute("farmacos", reserva.getFarmacos());
 		model.addAttribute("title","Listado de fármacos");
-		return "medicamentos/list";
+		return "detallereserva/list";
 	}
 	
 	//comentar
