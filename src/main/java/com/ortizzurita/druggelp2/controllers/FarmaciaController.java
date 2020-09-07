@@ -24,6 +24,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.ortizzurita.druggelp2.models.entities.Articulo;
 import com.ortizzurita.druggelp2.models.entities.Farmacia;
 import com.ortizzurita.druggelp2.models.entities.Farmaco;
+import com.ortizzurita.druggelp2.models.reporting.RptFarmaciaArticulo;
 import com.ortizzurita.druggelp2.models.reporting.RptFarmacoFarmacia;
 import com.ortizzurita.druggelp2.models.reporting.RptFarmacoPrecio;
 import com.ortizzurita.druggelp2.models.services.IFarmaciaService;
@@ -288,6 +289,23 @@ public class FarmaciaController {
 		}		
 	}
 	
+	
+	///////////////////////////////////////////
+	@GetMapping(value = "/rptFarmaciaArticulo")
+	public String rptFarmaciaArticulo(Model model) {
+		return "farmacia/rptFarmaciaArticulo";				
+	}
+	
+	
+	@GetMapping(value = "/dataRptFarmaciaArticulo", produces="application/json")
+	public @ResponseBody List<RptFarmaciaArticulo> dataRptFarmaciaArticulo(Model model) {				
+		try {
+			return this.srvFarmacia.rptFarmaciaArticulo();
+		} catch (Exception ex) {
+			System.out.println(ex.getMessage());
+			return null;
+		}		
+	}
 	
 	
 }

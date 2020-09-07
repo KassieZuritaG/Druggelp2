@@ -1,4 +1,4 @@
-function reportArticulos(){	
+function reportFarmaciasArticulos(){	
 	$.ajax({
 		url : "/farmacia/dataRptFarmacoFarmacia",
 		method : 'GET',
@@ -7,47 +7,40 @@ function reportArticulos(){
 
 			var toData = [];
 			var color = Chart.helpers.color;
-			var toFarmaciasAll= [];
 			var toArticulosAll= [];
+			var toFarmaciasAll= [];
 			var toBarrasMat = [];
 			var toCantidad= [];
 			
 			$.each(response, function(i, item){
 				console.log(item);
-				toFarmaciasAll.push(item.nombrefarmacia);
 				toArticulosAll.push(item.articulo);
+				toFarmaciasAll.push(item.nombrefarmacia);
 				toData.push(item.cantidad); 
 			});
 			
 			
 			//eliminar las materias repetidas 
-			var toArticulos = [];
+			var toFarmacias = [];
 			const myObjM = {}
-			toArticulosAll.forEach(x => !(x in myObjM) && (myObjM[x] = true) && toArticulos.push(x))
-			
-			
+			toFarmaciasAll.forEach(x => !(x in myObjM) && (myObjM[x] = true) && toFarmacias.push(x))
 			
 			//eliminar los farmacias repetidos 
-			var toFarmacias = [];
+			var toArticulos = [];
 			const myObjU = {}
-			toFarmaciasAll.forEach(y => !(y in myObjU) && (myObjU[y] = true) && toFarmacias.push(y))
-
-
-			
-			
-			
+			toArticulosAll.forEach(y => !(y in myObjU) && (myObjU[y] = true) && toArticulos.push(y))
 			
 			//cargar las barras
 			var usuTemporal = ".";
 			var cantTemporal = 0;
-			$.each(toArticulos, function(i, item){
+			$.each(toFarmacias, function(i, item){
 				console.log(item);
-				toFarmacias.forEach(function(element1){
+				toArticulos.forEach(function(element1){
 					cantTemporal = 0;
 					response.forEach(function(element){ 
-						if(item == element.articulo && item != usuTemporal && element1 == element.nombrefarmacia){
+						if(item == element.nombrefarmacia && item != usuTemporal && element1 == element.articulo){
 							console.log(element.cantidad);
-							console.log(element.nombrefarmacia);
+							console.log(element.articulo);
 							cantTemporal=1;
 							toCantidad.push(element.cantidad);
 						}	
@@ -68,11 +61,11 @@ function reportArticulos(){
 			});
 			
 			var barChartData = {
-					labels: toFarmacias, 
+					labels: toArticulos, 
 					datasets: toBarrasMat
 			};
 			
-				var ctx = document.getElementById('canvasArticulos').getContext('2d');
+				var ctx = document.getElementById('canvasFarmaciaArticulos').getContext('2d');
 				window.myBar = new Chart(ctx, {
 					type: 'bar',
 					data: barChartData,
@@ -83,7 +76,7 @@ function reportArticulos(){
 						},
 						title: {
 							display: true,
-							text: 'Articulos por Farmacias'
+							text: 'Farmacias por articulos'
 						}
 					}
 				});
@@ -97,7 +90,7 @@ function reportArticulos(){
 $(document).ready(function(){
 	window.onload = function() {
 	
-		reportArticulos();
+		reportFarmaciasArticulos();
 
 	};
 });
