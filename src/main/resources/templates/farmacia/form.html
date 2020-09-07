@@ -28,9 +28,9 @@
 												</div>
 												<div class="col-5">
 													<input type="text" class="form-control"
-														th:field="*{nombre}"
-														th:errorclass="'form-control is-invalid'"
-														placeholder="Nombre de la Farmacia" /> 
+														th:field="*{nombre}" required
+														th:errorclass="'form-control is-invalid'" 
+														placeholder="Nombre de la Farmacia"  /> 
 													<small class="invalid-feedback"
 														th:if="${#fields.hasErrors('nombre')}"
 														th:errors="*{nombre}"></small>
@@ -41,7 +41,7 @@
 												</div>
 												<div class="col-5">
 													<input type="text" class="form-control"
-														th:field="*{telefono}"
+														th:field="*{telefono}" required
 														th:errorclass="'form-control is-invalid'"
 														placeholder="Telefono" /> 
 													<small class="invalid-feedback"
@@ -57,7 +57,7 @@
 												</div>
 												<div class="col-5">
 													<input type="text" class="form-control"
-														th:field="*{direccion}"
+														th:field="*{direccion}" required
 														th:errorclass="'form-control is-invalid'"
 														placeholder="Dirección Farmacia" /> 
 													<small class="invalid-feedback"
