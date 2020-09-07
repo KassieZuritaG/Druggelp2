@@ -9,20 +9,12 @@
 		<thead class="bg-light">
 			<tr>
 				<th><i class="far fa-address-card"></i>&nbsp;Fármaco</th>
-				<th><i class="far fa-address-card"></i>&nbsp;Nombre</th>
-				<th><i class="fas fa-user-tie"></i>&nbsp;Costo</th>
-				<th><i class="fas fa-user-tie"></i>&nbsp;Cantidad</th>
-				<th><i class="fas fa-calendar-alt"></i>&nbsp;SubTotal</th>
 				<th></th>
 			</tr>
 		</thead>
 		<tbody>
 			<tr th:each="m : ${medicamentos}">
-				<td th:text="${m.farmaco.imagen}"></td>
-				<td th:text="${m.farmaco.nombre}"></td>
-				<td th:text="${m.farmaco.costo}"></td>
-				<td th:text="${m.cantidad}"></td>
-				<td th:text="${m.subtotal}"></td>
+				<td th:text="${m.farmaco}"></td>
 				<td>
 					<button th:onclick="|onDelete(${ m.idfarmaco});|"
 						class="btn btn-xs academy-btn btn-4">

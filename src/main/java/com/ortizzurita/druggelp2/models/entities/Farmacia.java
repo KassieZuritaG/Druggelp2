@@ -2,6 +2,7 @@ package com.ortizzurita.druggelp2.models.entities;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Basic;
@@ -18,6 +19,8 @@ import javax.persistence.Table;
 
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name="farmacias")
@@ -58,6 +61,10 @@ public class Farmacia implements Serializable{
 	@Column(name = "modificado_por")
 	private String modificadoPor;
 
+	@JsonIgnore
+	@OneToMany(mappedBy="farmacia", fetch=FetchType.LAZY) 
+	private List<Medicamento> medicamentos;
+			
 	public Farmacia() {
 		super();
 	}
@@ -65,6 +72,16 @@ public class Farmacia implements Serializable{
 	public Farmacia(Integer id) {
 		super();
 		this.idfarmacia = id;
+	}
+	
+	public List<Medicamento> getMedicamentos() {
+		if(medicamentos == null)
+			medicamentos = new ArrayList<Medicamento>();
+		return medicamentos;
+	}
+
+	public void setMedicamentos(List<Medicamento> medicamentos) {
+		this.medicamentos = medicamentos;
 	}
 
 	public Integer getIdfarmacia() {
@@ -134,17 +151,6 @@ public class Farmacia implements Serializable{
 	@Override
 	public String toString() {
 		return this.getNombre() + " " + this.getTelefono();
-	}
-	
-	@OneToMany(mappedBy="farmacia",fetch=FetchType.LAZY)
-		private List<Farmaco> farmacos;
-
-	public List<Farmaco> getFarmacos() {
-		return farmacos;
-	}
-
-	public void setFarmacos(List<Farmaco> farmacos) {
-		this.farmacos = farmacos;
 	}
 	
 	@PrePersist

@@ -71,10 +71,6 @@ public class Farmaco implements Serializable{
 	@Column(name = "imagen")
 	private String imagen;
 	
-	@JsonIgnore
-	@OneToMany(mappedBy="farmaco", fetch=FetchType.LAZY)
-	private List<Medicamento> medicamentos;
-	
 	@Column(name = "creado_en")
 	private LocalDateTime creadoEn;
 
@@ -86,6 +82,10 @@ public class Farmaco implements Serializable{
 
 	@Column(name = "modificado_por")
 	private String modificadoPor;
+	
+	@JsonIgnore
+	@OneToMany(mappedBy="medicamento", fetch=FetchType.LAZY) 
+	private List<DetalleReserva> medicamentos;
 	
 	public Farmaco() {
 		super();
@@ -160,14 +160,6 @@ public class Farmaco implements Serializable{
 		this.imagen = imagen;
 	}
 
-	public Farmacia getFarmacia() {
-		return farmacia;
-	}
-
-	public void setFarmacia(Farmacia farmacia) {
-		this.farmacia = farmacia;
-	}
-
 	public LocalDateTime getCreadoEn() {
 		return creadoEn;
 	}
@@ -199,13 +191,13 @@ public class Farmaco implements Serializable{
 	public void setModificadoPor(String modificadoPor) {
 		this.modificadoPor = modificadoPor;
 	}
-
-	public List<DetalleReserva> getDetalleReserva() {
-		return detalleReserva;
+	
+	public List<DetalleReserva> getMedicamentos() {
+		return medicamentos;
 	}
 
-	public void setDetalleReserva(List<DetalleReserva> detalleReserva) {
-		this.detalleReserva = detalleReserva;
+	public void setMedicamentos(List<DetalleReserva> medicamentos) {
+		this.medicamentos = medicamentos;
 	}
 
 	@Override
@@ -225,26 +217,6 @@ public class Farmaco implements Serializable{
 		return sdf.format(fechaFabricacion.getTime());
 	}
 	
-	@JoinColumn(name="fk_farmacia", referencedColumnName="pk_farmacia")
-	@ManyToOne
-	private  Farmacia farmacia;
-	
-	@OneToMany(mappedBy="farmaco",fetch=FetchType.LAZY)
-	private List<DetalleReserva> detalleReserva;
-	
-	Calendar c=new GregorianCalendar();
-	int dia=c.get(Calendar.DAY_OF_MONTH);
-	int mes=c.get(Calendar.MONTH);
-	int an=c.get(Calendar.YEAR);
-
-	public List<Medicamento> getMedicamentos() {
-		return medicamentos;
-	}
-
-	public void setMedicamentos(List<Medicamento> medicamentos) {
-		this.medicamentos = medicamentos;
-	}
-	
 	@PrePersist
 	public void prePersist() {
 		creadoEn = LocalDateTime.now();
@@ -258,5 +230,7 @@ public class Farmaco implements Serializable{
 		SecurityContext context = SecurityContextHolder.getContext();
         modificadoPor = context.getAuthentication().getName();
 	}
+	
+	
 	
 }

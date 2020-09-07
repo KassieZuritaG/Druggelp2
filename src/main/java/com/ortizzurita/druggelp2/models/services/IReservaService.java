@@ -10,5 +10,4 @@ public interface IReservaService {
 	public Reserva findById(Integer id);
 	public void delete(Integer id);
 	public List<Reserva> findAll();
-	public List<Reserva> findByUsuario(Integer id);
 }

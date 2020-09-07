@@ -1,10 +1,42 @@
 <!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-</head>
+<html xmlns:th="http://www.thymeleaf.org">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/> 
 <body>
-
+	<table class="table table-hover">
+		<thead class="bg-light">
+			<tr>
+				<th><i class="fas fa-adjust"></i>&nbsp;Nombre</th>
+				<th><i class="far fa-image"></i>&nbsp;Producto</th>
+				<th><i class="fas fa-dollar-sign"></i>&nbsp;Costo</th>
+				<th><i class="fas fa-calendar-alt"></i>&nbsp;Fecha de Expiración</th>
+				<th><i class="fas fa-list-ol"></i>&nbsp;Cantidad</th>
+				<th><i class="fas fa-dollar-sign"></i>&nbsp;SubTotal</th>
+				<th></th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr th:each="d : ${farmacos}">
+				<td th:text="${d.medicamento.nombre}"></td>
+				<td><img width="100px" height="100px" th:src="@{/photos/} + ${d.medicamento.imagen}"/></td>
+				<td th:text="${d.medicamento.costo}"></td>
+				<td th:text="${d.medicamento.fechaExp()}"></td>
+				<td th:text="${d.cantidad}"></td>
+				<td th:text="${d.subtotal=d.medicamento.costo*d.cantidad}"></td>
+				<td>
+					<button th:onclick="|onDeletedetalle(${d.reservaid});|"
+						class="btn btn-xs academy-btn btn-4">
+						<i class="fas fa-trash-alt"></i>
+					</button>
+				</td>
+			</tr>
+		</tbody>
+	</table>
 </body>
+<script th:src="@{/assets/js/reserva/card-detalleReserva.js}"></script>
+<script th:inline="javascript">
+window.onload = function() {
+	  var total = 0;
+	};
+	var total = total + d.subtotal;
+</script>
 </html>

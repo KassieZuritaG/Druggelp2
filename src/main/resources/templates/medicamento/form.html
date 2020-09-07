@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/> 
+<head th:replace="layout :: frgCSS"></head>
+<body>   
+	<div class="row d-flex align-items-center">
+		<div class="col-1">
+			<i class="fas fa-layer-group"></i>
+		</div>
+		<div class="col-11">
+			<input type="text" id="txtNombre" onchange="searchByNombre();"  class="form-control"
+				placeholder="Ingresa el nombre del fármaco para buscar" />
+		</div>
+	</div>
+	<hr>
+	<form id="frmMedicamento" 
+	class="contact-form-area ml-3 mr-3" 
+	th:object="${medicamento}" th:action="@{/farmacia/add}" method="post">		
+		<div class="row d-flex align-items-center">
+			<div class="col-1">
+				<i class="fas fa-book-open"></i>
+			</div>
+			<div class="col-2">
+				<small>Nombre</small>
+			</div>
+			<div class="col-9">
+				<select th:field="*{farmacoid}" class="form-control invisible">
+				</select>
+			</div>
+		</div>
+		<div class="row d-flex align-items-center">
+			<div class="col-1">
+				<i class="fas fa-book-open"></i>
+			</div>
+			<div class="col-2">
+				<small>Costo</small>
+			</div>
+			<div class="col-9">
+				<select th:field="*{farmacoid}" class="form-control invisible">
+				</select>
+			</div>
+		</div>
+		
+		
+		
+		
+		<div class="row d-flex align-items-center">
+			<div class="col-1">
+				<i class="fab fa-typo3"></i>
+			</div>
+			<div class="col-2">
+				<small>Financiamiento:</small>
+			</div>
+			<div class="col-9">
+				<!--  ><select th:field="*{tipo_financiamiento}" class="form-control">
+					<option value="I">Institucional</option>
+					<option value="B">Beca</option>
+					<option value="P">Propio</option>
+				</select>-->
+			</div>
+		</div>		
+			<div class="row d-flex align-items-center">
+			<div class="col-1">
+				<i class="fab fa-typo3"></i>
+			</div>
+			<div class="col-2">
+				<small>Valor:</small>
+			</div>
+		</div>
+	</form>
+</body>
+<div th:replace="layout :: frgScripts"></div>
+</html>

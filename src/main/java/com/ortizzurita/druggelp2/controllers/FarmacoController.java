@@ -35,15 +35,10 @@ public class FarmacoController {
 	@Autowired
 	private IFarmacoService srvFarmaco;
 	
-	@Autowired
-	private IFarmaciaService srvFarmacia;
-	
 	@GetMapping(value="/create")
 	public String create(Model model) {
 		Farmaco farmaco = new Farmaco();
-		List<Farmacia> farmacias = this.srvFarmacia.findAll();
 		model.addAttribute("title", "Registro de un nueva fármaco");
-		model.addAttribute("farmacias", farmacias); 
 		model.addAttribute("farmaco", farmaco);
 		return "farmaco/form";
 	}
@@ -59,8 +54,6 @@ public class FarmacoController {
 	@GetMapping(value="/update/{id}")
 	public String update(@PathVariable(value="id") Integer id, Model model) {
 		Farmaco farmaco = this.srvFarmaco.findById(id);
-		List<Farmacia> farmacias = srvFarmacia.findAll();
-		model.addAttribute("farmacias", farmacias);
 		model.addAttribute("farmaco", farmaco);
 		model.addAttribute("title", "Actualizando el registro de "+ farmaco.getNombre() +" - "+farmaco.fechaExp());
 		return "farmaco/form";
@@ -72,7 +65,7 @@ public class FarmacoController {
 		return "redirect:/farmaco/list";
 	}
 	
-	@GetMapping(value= {"/","/list"})
+	@GetMapping(value= "/list")
 	public String list(Model model) {
 		List<Farmaco> farmacos = this.srvFarmaco.findAll();
 		model.addAttribute("farmacos", farmacos);
@@ -113,7 +106,7 @@ public class FarmacoController {
 				}
 			}
 			
-			this.srvFarmaco.save(farmacos);
+			srvFarmaco.save(farmacos);
 			status.setComplete();
 			flash.addFlashAttribute("success", message);
 		}catch(Exception ex) {
@@ -121,12 +114,11 @@ public class FarmacoController {
 		}
 		
 		return "redirect:/farmaco/list";
-	}
+	}	
 	
 	@GetMapping(value="/search/{criteria}", produces="application/json")
 	public @ResponseBody List<Farmaco> search(@PathVariable(value="criteria") String criteria, Model model) {
-		List<Farmaco> lista = this.srvFarmaco.findByNombre(criteria);	
+		List<Farmaco> lista = this.srvFarmaco.findByNombre(criteria);
 		return lista;		
 	}
-	
 }
