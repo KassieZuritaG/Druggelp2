@@ -23,6 +23,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.ortizzurita.druggelp2.models.entities.DetalleReserva;
 import com.ortizzurita.druggelp2.models.entities.Farmaco;
 import com.ortizzurita.druggelp2.models.entities.Reserva;
+import com.ortizzurita.druggelp2.models.reporting.RptReservaUsuario;
 import com.ortizzurita.druggelp2.models.services.IFarmacoService;
 import com.ortizzurita.druggelp2.models.services.IReservaService;
 
@@ -132,5 +133,25 @@ public class ReservaController {
 		model.addAttribute("title","Listado de fármacos");
 		return "detallereserva/list";
 	}
+	
+	//comentar
+	/*@GetMapping(value = "/rptReservaUsuario")
+	public String rptReservaUsuario(Model model) {
+		return "reserva/rptReservaUsuario";				
+	}
+	
+	
+	@GetMapping(value = "/dataRptReservaUsuario", produces="application/json")
+	public @ResponseBody List<RptReservaUsuario> dataRptReservaUsuario(Model model) {				
+		try {
+			return  this.srvReserva.rptReservaUsuario();
+		} catch (Exception ex) {
+			System.out.println(ex.getMessage());
+			return null;
+		}		
+	}*/
+
+	
+	
 	
 }
