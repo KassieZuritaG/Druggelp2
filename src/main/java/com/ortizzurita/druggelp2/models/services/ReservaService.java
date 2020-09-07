@@ -11,12 +11,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.ortizzurita.druggelp2.models.dao.IDetalleReserva;
 import com.ortizzurita.druggelp2.models.dao.IMedicamento;
 import com.ortizzurita.druggelp2.models.dao.IReserva;
 import com.ortizzurita.druggelp2.models.entities.Reserva;
 import com.ortizzurita.druggelp2.models.reporting.RptReservaUsuario;
-import com.ortizzurita.druggelp2.models.entities.DetalleReserva;
 import com.ortizzurita.druggelp2.models.entities.Medicamento;
 
 @Service
@@ -26,7 +24,7 @@ public class ReservaService implements IReservaService{
 	private IReserva dao;
 	
 	@Autowired 
-	private IDetalleReserva daoMedicamento;
+	private IMedicamento daoMedicamento;
 	
 ////Es la instancia de persistencia con la BDD
 	@PersistenceContext
@@ -37,9 +35,9 @@ public class ReservaService implements IReservaService{
 	public void save(Reserva res) {
 		try {
 			dao.save(res);
-			for(DetalleReserva dt: res.getFarmacos()){
-				dt.setReserva(res);
-				this.daoMedicamento.save(dt);
+			for(Medicamento m: res.getMedicamentos()){
+				m.setReserva(res);
+				this.daoMedicamento.save(m);
 			}	
 		}catch(Exception ex) {
 			throw ex;
@@ -62,6 +60,17 @@ public class ReservaService implements IReservaService{
 	@Transactional
 	public List<Reserva> findAll() {
 		return (List<Reserva>) dao.findAll();
+	}
+
+	@Override
+	public List<Reserva> findByUsuario(Integer id) {
+		try {
+			List<Reserva> resultado = dao.findByUsuario(id);
+			return resultado;
+		}catch(Exception ex) {
+			System.out.println("Error =>" + ex.getMessage());
+			return null;
+		}
 	}
 
 	//comentar esto

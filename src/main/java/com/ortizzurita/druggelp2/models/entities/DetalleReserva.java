@@ -2,7 +2,6 @@ package com.ortizzurita.druggelp2.models.entities;
 
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
-import java.time.LocalDateTime;
 import java.util.Calendar;
 
 import javax.persistence.Basic;
@@ -16,7 +15,6 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import javax.persistence.Transient;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -32,41 +30,19 @@ public class DetalleReserva implements Serializable{
 	@Column(name="pk_detalle")	
 	private Integer iddetalle;
 	
+	@Column(name = "fecha_reserva")
+	@Temporal(TemporalType.DATE)
+	@DateTimeFormat(pattern = "yyyy-MM-dd")	
+	private Calendar fechaRecerva;
+	
 	@Column(name="subtotal")
 	private Float subtotal;
+
+	@Column(name="total")
+	private Float total;
 	
 	@Column(name="cantidad")
 	private Integer cantidad;
-	
-	@JoinColumn(name="fk_farmaco", referencedColumnName="pk_farmaco")
-	@ManyToOne
-	private Farmaco medicamento;
-	
-	@JoinColumn(name="fk_reserva", referencedColumnName="pk_reserva")
-	@ManyToOne
-	private Reserva reserva;
-	
-	/**** TRANSIENT ***/
-	
-	@Transient
-	private int medicamentoid;
-	
-	@Transient
-	private int reservaid;
-	
-	@Column(name = "creado_en")
-	private LocalDateTime creadoEn;
-
-	@Column(name = "creado_por")
-	private String creadoPor;
-
-	@Column(name = "modificado_en")
-	private LocalDateTime modificadoEn;
-
-	@Column(name = "modificado_por")
-	private String modificadoPor;
-	
-	
 
 	public DetalleReserva() {
 		super();
@@ -85,12 +61,28 @@ public class DetalleReserva implements Serializable{
 		this.iddetalle = iddetalle;
 	}
 
+	public Calendar getFechaRecerva() {
+		return fechaRecerva;
+	}
+
+	public void setFechaRecerva(Calendar fechaRecerva) {
+		this.fechaRecerva = fechaRecerva;
+	}
+
 	public Float getSubtotal() {
 		return subtotal;
 	}
 
 	public void setSubtotal(Float subtotal) {
 		this.subtotal = subtotal;
+	}
+
+	public Float getTotal() {
+		return total;
+	}
+
+	public void setTotal(Float total) {
+		this.total = total;
 	}
 
 	public Integer getCantidad() {
@@ -103,7 +95,29 @@ public class DetalleReserva implements Serializable{
 	
 	@Override
 	public String toString() {
-		return this.getIddetalle() + " " ;
+		return this.getIddetalle() + " " + this.getFechaRecerva();
+	}
+	
+	public String fechaRecerva() {
+		if(this.fechaRecerva == null) return "-";
+		SimpleDateFormat sdf = new SimpleDateFormat("dd/MMM/yyyy");		
+		return sdf.format(fechaRecerva.getTime());
+	}
+	
+	@JoinColumn(name="fk_farmaco", referencedColumnName="pk_farmaco")
+	@ManyToOne
+	private  Farmaco farmaco;
+	
+	@JoinColumn(name="fk_reserva", referencedColumnName="pk_reserva")
+	@ManyToOne
+	private  Reserva reserva;
+
+	public Farmaco getFarmaco() {
+		return farmaco;
+	}
+
+	public void setFarmaco(Farmaco farmaco) {
+		this.farmaco = farmaco;
 	}
 
 	public Reserva getReserva() {
@@ -112,62 +126,6 @@ public class DetalleReserva implements Serializable{
 
 	public void setReserva(Reserva reserva) {
 		this.reserva = reserva;
-	}
-
-	public Farmaco getMedicamento() {
-		return medicamento;
-	}
-
-	public void setMedicamento(Farmaco medicamento) {
-		this.medicamento = medicamento;
-	}
-
-	public int getMedicamentoid() {
-		return medicamentoid;
-	}
-
-	public void setMedicamentoid(int medicamentoid) {
-		this.medicamentoid = medicamentoid;
-	}
-
-	public int getReservaid() {
-		return reservaid;
-	}
-
-	public void setReservaid(int reservaid) {
-		this.reservaid = reservaid;
-	}
-
-	public LocalDateTime getCreadoEn() {
-		return creadoEn;
-	}
-
-	public void setCreadoEn(LocalDateTime creadoEn) {
-		this.creadoEn = creadoEn;
-	}
-
-	public String getCreadoPor() {
-		return creadoPor;
-	}
-
-	public void setCreadoPor(String creadoPor) {
-		this.creadoPor = creadoPor;
-	}
-
-	public LocalDateTime getModificadoEn() {
-		return modificadoEn;
-	}
-
-	public void setModificadoEn(LocalDateTime modificadoEn) {
-		this.modificadoEn = modificadoEn;
-	}
-
-	public String getModificadoPor() {
-		return modificadoPor;
-	}
-
-	public void setModificadoPor(String modificadoPor) {
-		this.modificadoPor = modificadoPor;
 	}
 	
 	
