@@ -71,9 +71,6 @@ public class Farmaco implements Serializable{
 	@Column(name = "imagen")
 	private String imagen;
 	
-	//@JsonIgnore
-	@OneToMany(mappedBy="farmaco", fetch=FetchType.LAZY)
-	private List<Medicamento> medicamentos;
 	
 	@Column(name = "creado_en")
 	private LocalDateTime creadoEn;
@@ -245,22 +242,14 @@ public class Farmaco implements Serializable{
 		this.farmacia = farmacia;
 	}
 	*/
-	@JsonIgnore
+	/*@JsonIgnore
 	@OneToMany(mappedBy="farmaco",fetch=FetchType.LAZY)
-	private List<DetalleReserva> detalleReserva;
+	private List<DetalleReserva> detalleReserva;*/
 	
 	Calendar c=new GregorianCalendar();
 	int dia=c.get(Calendar.DAY_OF_MONTH);
 	int mes=c.get(Calendar.MONTH);
 	int an=c.get(Calendar.YEAR);
-
-	public List<Medicamento> getMedicamentos() {
-		return medicamentos;
-	}
-
-	public void setMedicamentos(List<Medicamento> medicamentos) {
-		this.medicamentos = medicamentos;
-	}
 	
 	@PrePersist
 	public void prePersist() {
