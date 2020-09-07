@@ -22,9 +22,9 @@ import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.ortizzurita.druggelp2.models.entities.Farmacia;
+
 import com.ortizzurita.druggelp2.models.entities.Farmaco;
-import com.ortizzurita.druggelp2.models.services.IFarmaciaService;
+//import com.ortizzurita.druggelp2.models.services.IFarmaciaService;
 import com.ortizzurita.druggelp2.models.services.IFarmacoService;
 
 @Controller
@@ -35,10 +35,16 @@ public class FarmacoController {
 	@Autowired
 	private IFarmacoService srvFarmaco;
 	
+
+	/*@Autowired
+	private IFarmaciaService srvFarmacia;*/
+	
 	@GetMapping(value="/create")
 	public String create(Model model) {
 		Farmaco farmaco = new Farmaco();
+		//List<Farmacia> farmacias = this.srvFarmacia.findAll();
 		model.addAttribute("title", "Registro de un nueva fármaco");
+		//model.addAttribute("farmacias", farmacias); 
 		model.addAttribute("farmaco", farmaco);
 		return "farmaco/form";
 	}
@@ -54,6 +60,8 @@ public class FarmacoController {
 	@GetMapping(value="/update/{id}")
 	public String update(@PathVariable(value="id") Integer id, Model model) {
 		Farmaco farmaco = this.srvFarmaco.findById(id);
+		//List<Farmacia> farmacias = srvFarmacia.findAll();
+		//model.addAttribute("farmacias", farmacias);
 		model.addAttribute("farmaco", farmaco);
 		model.addAttribute("title", "Actualizando el registro de "+ farmaco.getNombre() +" - "+farmaco.fechaExp());
 		return "farmaco/form";
@@ -74,7 +82,7 @@ public class FarmacoController {
 	}
 	
 	@PostMapping(value="/save") 
-	public String save(@Validated Farmaco farmacos, BindingResult result, Model model,
+	public String save(@Validated Farmaco farmaco, BindingResult result, Model model,
 			@RequestParam("photo") MultipartFile image,
 			SessionStatus status, RedirectAttributes flash) {
 		try {
@@ -82,15 +90,18 @@ public class FarmacoController {
 			String message = "Fármaco agregado correctamente";
 			String titulo = "Nuevo registro de fármaco";
 			
-			if(farmacos.getIdfarmaco() != null) {
+			if(farmaco.getIdfarmaco() != null) {
 				message = "Fármaco actualizado correctamente";
-				titulo = "Actualizando el registro de " + farmacos;
+				titulo = "Actualizando el registro de " + farmaco;
 			}
 			
 			if(result.hasErrors()) {
-				model.addAttribute("title", "Error al registrar una nuevo fármaco");
-				model.addAttribute("farmacos", farmacos);
-				return "farmaco/form";
+				model.addAttribute("title", titulo);							
+				return "farmaco/form";	
+				
+				//model.addAttribute("title", "Error al registrar una nuevo fármaco");
+				//model.addAttribute("farmacos", farmaco);
+				//return "farmaco/form";
 			}
 			if (!image.isEmpty()) {				
 				Path dir = Paths.get("src//main//resources//static//photos");
@@ -99,14 +110,15 @@ public class FarmacoController {
 					byte[] bytes = image.getBytes();
 					Path rutaCompleta = Paths.get(rootPath + "//" + image.getOriginalFilename());
 					Files.write(rutaCompleta, bytes);
-					farmacos.setImagen(image.getOriginalFilename());
+					farmaco.setImagen(image.getOriginalFilename());
 
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
 			}
 			
-			srvFarmaco.save(farmacos);
+
+			this.srvFarmaco.save(farmaco);
 			status.setComplete();
 			flash.addFlashAttribute("success", message);
 		}catch(Exception ex) {

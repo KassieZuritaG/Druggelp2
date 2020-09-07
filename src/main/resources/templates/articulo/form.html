@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+</head>
+<body>
+
+	<div class="row d-flex align-items-center">
+		<div class="col-1">
+			<i class="fas fa-layer-group"></i>
+		</div>
+		<div class="col-11">
+			<input type="text" id="txtNombre" onchange="searchByNombre();"  class="form-control"
+				placeholder="Buscar articulo por nombre" />
+		</div>
+	</div>
+	<hr>
+
+	<form id="frmArticulo" 	class="contact-form-area ml-3 mr-3" 
+	th:object="${articulo}" th:action="@{/farmacia/add}" method="post">		
+		<div class="row d-flex align-items-center">
+			<div class="col-1">
+				<i class="fas fa-book-open"></i>
+			</div>
+			<div class="col-2">
+				<small>Articulo</small>
+			</div>
+			<div class="col-9">
+				<select th:field="*{farmacoid}" class="form-control invisible"></select>
+			</div>
+		</div>
+		
+		<div class="row d-flex align-items-center">
+				<div class="col-1">
+					<i class="fab fa-typo3"></i>
+				</div>
+				<div class="col-2">
+					<small>Cantidad:</small>
+				</div>
+				<div class="col-9">
+					<input type="number" th:field="*{cantidad}" class="form-control"
+						placeholder="Cantidad"  />
+				</div>
+		</div>
+	</form>
+
+</body>
+</html>

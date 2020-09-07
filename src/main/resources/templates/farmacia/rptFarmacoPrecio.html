@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/> 
+<head th:replace="layout :: frgCSS"></head>
+<header th:replace="layout :: frgheader"></header>
+
+<body>
+ 
+ 	<div id="preloader">
+		<i class="circle-preloader"></i>
+	</div>
+    
+     	<div>		
+		<div class="bradcumbContent">
+			<center><h2 id="title">Reporte 2</h2></center>
+		</div>
+	</div>
+    
+    <div class="academy-courses-area section-padding-100-0">
+        <div class="container">
+            
+            <div class="row">
+            	<canvas id="canvasFarmacos" style="display: block; width: 654px; height: 327px;" width="654" height="327" class="chartjs-render-monitor"></canvas>
+            </div>
+        </div>
+    </div>
+ <div th:replace="layout :: frgFooter"></div>
+ <div th:replace="layout :: frgScripts"></div>
+ 
+ <script th:src="@{/assets/js/farmacia/rpt-farmaco-precio.js}"></script> 
+</body>
+
+</html>

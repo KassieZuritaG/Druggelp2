@@ -22,6 +22,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+
 @Entity
 @Table(name="farmacias")
 public class Farmacia implements Serializable{
@@ -152,6 +153,31 @@ public class Farmacia implements Serializable{
 	public String toString() {
 		return this.getNombre() + " " + this.getTelefono();
 	}
+	
+	@JsonIgnore
+	@OneToMany(mappedBy="farmacia", fetch=FetchType.LAZY) 
+	private List<Articulo> articulos;
+	
+	public List<Articulo> getArticulos() {
+		if(articulos == null)
+			articulos = new ArrayList<Articulo>();
+		return articulos;
+	}
+
+	public void setArticulos(List<Articulo> articulos) {
+		this.articulos = articulos;
+	}
+	
+	/*@OneToMany(mappedBy="farmacia",fetch=FetchType.LAZY)
+		private List<Farmaco> farmacos;
+
+	public List<Farmaco> getFarmacos() {
+		return farmacos;
+	}
+
+	public void setFarmacos(List<Farmaco> farmacos) {
+		this.farmacos = farmacos;
+	}*/
 	
 	@PrePersist
 	public void prePersist() {

@@ -52,13 +52,13 @@
 												</div>
 											</div>	
 											<div class="row d-flex align-items-center" >
-												<div class="col-1" align="center">											
+												<!-- <div class="col-1" align="center">											
 													<i class="fas fa-list-ol"></i>											
 												</div>
 												<div class="col-5">													
 													<input type="text" class="form-control" th:field="*{cantidad}" th:errorclass="'form-control is-invalid'" placeholder="Cantidad" />
 													<small class="invalid-feedback" th:if="${#fields.hasErrors('cantidad')}" th:errors="*{cantidad}"></small>																
-												</div>
+												</div> -->
 												<div class="col-1" align="center">										
 													<i class="far fa-bookmark"></i>												
 													</div>
@@ -75,7 +75,22 @@
 													<div class="col-5">													
 														<input type="file" name="photo" id="photo" class="form-control" />												
 													</div>
-											</div>		
+
+												<!--  <div class="col-1" align="center">											
+													<i class="fas fa-book-open"></i>
+													<strong>Farmacia</strong> 											
+												</div>
+												<div class="col-5">			
+													<select class="form-control" th:field=*{farmacia.idfarmacia}>
+														<option value=0>--Seleccione--</option>
+														<option th:each="farmacia:${farmacias}"
+															th:value="${farmacia.idfarmacia}"
+															th:text="${farmacia.nombre}">
+														</option>
+													</select>
+												</div>	-->
+											</div>												
+											
 											<br><br>
 											<div class="d-flex justify-content-end">																						
 												<button class="btn btn-success btn-lg active"  type="submit"><i class="fas fa-save"></i> &nbsp;Guardar</button>&nbsp;&nbsp;

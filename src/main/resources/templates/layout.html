@@ -47,13 +47,24 @@
                                         <ul class="submenu">
                                             <li><a th:href="@{/farmacia/list}">Locales</a></li>
                                             <li><a th:href="@{/farmaco/list}">Productos</a></li>
+                                            <li><a th:href="@{/farmacia/rptFarmacoFarmacia}">Reporte de Productos en Farmacias</a></li>
+                                            <li><a th:href="@{/farmacia/rptFarmacoPrecio}">Reporte de precios Productos</a></li>
                                         </ul>
                                     </li>
                                     <li class="hot"><a th:href="@{/shop.html}">Fármacos</a></li>
                                     <li><a th:href="@{/usuario/list}">Personal</a>
                                     </li>
-                                    <li><a th:href="@{/reserva/create}">Pedido</a>
+                                    <li><a href="#">Pedido</a>
+                                        <ul class="submenu">
+                                            <li><a th:href="@{/reserva/create}">Pedido</a></li>
+	                                    <li><a th:href="@{/reserva/rptReservaUsuario}">Reporte de Reservas por usuario</a></li>
+                                        </ul>
                                     </li>
+                                    
+                                    
+                                    
+	                                    
+                                    
                                 </ul>
                             </nav>
                         </div>
