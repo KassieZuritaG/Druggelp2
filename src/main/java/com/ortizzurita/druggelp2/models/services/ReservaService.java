@@ -1,6 +1,11 @@
 package com.ortizzurita.druggelp2.models.services;
 
 import java.util.List;
+import java.util.stream.Collectors;
+
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.persistence.StoredProcedureQuery;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -9,6 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.ortizzurita.druggelp2.models.dao.IMedicamento;
 import com.ortizzurita.druggelp2.models.dao.IReserva;
 import com.ortizzurita.druggelp2.models.entities.Reserva;
+import com.ortizzurita.druggelp2.models.reporting.RptReservaUsuario;
 import com.ortizzurita.druggelp2.models.entities.Medicamento;
 
 @Service
@@ -19,6 +25,10 @@ public class ReservaService implements IReservaService{
 	
 	@Autowired 
 	private IMedicamento daoMedicamento;
+	
+////Es la instancia de persistencia con la BDD
+	@PersistenceContext
+	private EntityManager em;
 	
 	@Override
 	@Transactional
@@ -62,5 +72,18 @@ public class ReservaService implements IReservaService{
 			return null;
 		}
 	}
+
+	//comentar esto
+	/*@Override
+	public List<RptReservaUsuario> rptReservaUsuario() {
+		StoredProcedureQuery query = em.createStoredProcedureQuery("reservas_por_usuario");
+		query.execute();
+		List<Object[]> datos = query.getResultList();		
+		return datos.stream()
+				.map(r -> new RptReservaUsuario((String)r[0], (BigInteger)r[1]))
+				.collect(Collectors.toList());	
+	}*/
+	/////
+
 
 }

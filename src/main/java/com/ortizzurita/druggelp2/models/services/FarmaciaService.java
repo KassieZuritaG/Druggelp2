@@ -16,6 +16,7 @@ import com.ortizzurita.druggelp2.models.dao.IFarmacia;
 import com.ortizzurita.druggelp2.models.entities.Articulo;
 import com.ortizzurita.druggelp2.models.entities.Farmacia;
 import com.ortizzurita.druggelp2.models.reporting.RptFarmacoFarmacia;
+import com.ortizzurita.druggelp2.models.reporting.RptFarmacoPrecio;
 
 @Service
 public class FarmaciaService implements IFarmaciaService{
@@ -29,6 +30,9 @@ public class FarmaciaService implements IFarmaciaService{
 ////Es la instancia de persistencia con la BDD
 	@PersistenceContext
 	private EntityManager em;
+	
+	@PersistenceContext
+	private EntityManager em2;
 	
 	@Override
 	@Transactional
@@ -70,6 +74,16 @@ public class FarmaciaService implements IFarmaciaService{
 		List<Object[]> datos = query.getResultList();		
 		return datos.stream()
 				.map(r -> new RptFarmacoFarmacia((String)r[0], (String)r[1], (Integer)r[2]))
+				.collect(Collectors.toList());	
+	}
+
+	@Override
+	public List<RptFarmacoPrecio> rptFarmacoPrecio() {
+		StoredProcedureQuery query = em2.createStoredProcedureQuery("farmacos_por_precio");
+		query.execute();
+		List<Object[]> datos = query.getResultList();		
+		return datos.stream()
+				.map(r -> new RptFarmacoPrecio((String)r[0], (String)r[1], (Float)r[2]))
 				.collect(Collectors.toList());	
 	}
 

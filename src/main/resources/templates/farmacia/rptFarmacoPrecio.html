@@ -9,12 +9,10 @@
  	<div id="preloader">
 		<i class="circle-preloader"></i>
 	</div>
-	
- 	
- 
- 	<div>		
+    
+     	<div>		
 		<div class="bradcumbContent">
-			<center><h2 id="title">Reporte</h2></center>
+			<center><h2 id="title">Reporte 2</h2></center>
 		</div>
 	</div>
     
@@ -22,17 +20,14 @@
         <div class="container">
             
             <div class="row">
-            	<canvas id="canvasArticulos" style="display: block; width: 654px; height: 327px;" width="654" height="327" class="chartjs-render-monitor"></canvas>
+            	<canvas id="canvasFarmacos" style="display: block; width: 654px; height: 327px;" width="654" height="327" class="chartjs-render-monitor"></canvas>
             </div>
         </div>
     </div>
-    <br>
-    
-
  <div th:replace="layout :: frgFooter"></div>
  <div th:replace="layout :: frgScripts"></div>
- <script th:src="@{/assets/js/farmacia/rpt-farmaco-farmacia.js}"></script>
-
+ 
+ <script th:src="@{/assets/js/farmacia/rpt-farmaco-precio.js}"></script> 
 </body>
 
 </html>

@@ -25,6 +25,7 @@ import com.ortizzurita.druggelp2.models.entities.Articulo;
 import com.ortizzurita.druggelp2.models.entities.Farmacia;
 import com.ortizzurita.druggelp2.models.entities.Farmaco;
 import com.ortizzurita.druggelp2.models.reporting.RptFarmacoFarmacia;
+import com.ortizzurita.druggelp2.models.reporting.RptFarmacoPrecio;
 import com.ortizzurita.druggelp2.models.services.IFarmaciaService;
 import com.ortizzurita.druggelp2.models.services.IFarmacoService;
 
@@ -269,5 +270,24 @@ public class FarmaciaController {
 			return null;
 		}		
 	}
+	
+	///////////////////////////////////////////
+	@GetMapping(value = "/rptFarmacoPrecio")
+	public String rptFarmacoPrecio(Model model) {
+		return "farmacia/rptFarmacoPrecio";				
+	}
+	
+	
+	@GetMapping(value = "/dataRptFarmacoPrecio", produces="application/json")
+	public @ResponseBody List<RptFarmacoPrecio> dataRptFarmacoPrecio(Model model) {				
+		try {
+			return this.srvFarmacia.rptFarmacoPrecio();
+		} catch (Exception ex) {
+			System.out.println(ex.getMessage());
+			return null;
+		}		
+	}
+	
+	
 	
 }

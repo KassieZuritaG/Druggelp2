@@ -10,8 +10,6 @@
 		<i class="circle-preloader"></i>
 	</div>
 	
- 	
- 
  	<div>		
 		<div class="bradcumbContent">
 			<center><h2 id="title">Reporte</h2></center>
@@ -22,16 +20,15 @@
         <div class="container">
             
             <div class="row">
-            	<canvas id="canvasArticulos" style="display: block; width: 654px; height: 327px;" width="654" height="327" class="chartjs-render-monitor"></canvas>
+            	<canvas id="chart-area-1" style="display: block; width: 654px; 
+            	height: 327px;" width="654" height="327" class="chartjs-render-monitor"></canvas>
             </div>
         </div>
     </div>
     <br>
-    
-
  <div th:replace="layout :: frgFooter"></div>
  <div th:replace="layout :: frgScripts"></div>
- <script th:src="@{/assets/js/farmacia/rpt-farmaco-farmacia.js}"></script>
+ <script th:src="@{/assets/js/farmacia/rpt-reserva-usuario.js}"></script>
 
 </body>
 
