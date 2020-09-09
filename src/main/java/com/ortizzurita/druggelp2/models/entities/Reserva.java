@@ -3,6 +3,7 @@ package com.ortizzurita.druggelp2.models.entities;
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
@@ -41,19 +42,29 @@ public class Reserva implements Serializable{
 	@Column(name="pk_reserva")	
 	private Integer idreserva;
 	
-	@Column(name = "fecha_reserva")
-	@Temporal(TemporalType.DATE)
-	@DateTimeFormat(pattern = "yyyy-MM-dd")	
-	private Calendar fechaRecerva;
+	private LocalDateTime fechaRecerva;
 	
-	/**** TRANSIENT ***/
+	@Column(name = "cod_reserva")
+	private String codReserva;
 	
-	@Transient
-	private int usuarioid;
+	@Column(name = "total_reserva")
+	private String totalReserva;
+
+	@Column(name = "creado_en")
+	private LocalDateTime creadoEn;
+
+	@Column(name = "creado_por")
+	private String creadoPor;
+
+	@Column(name = "modificado_en")
+	private LocalDateTime modificadoEn;
+
+	@Column(name = "modificado_por")
+	private String modificadoPor;
 	
 	@JsonIgnore
-	@OneToMany(mappedBy="reserva", fetch=FetchType.LAZY)
-	private List<Medicamento> medicamentos;
+	@OneToMany(mappedBy="reserva", fetch=FetchType.LAZY) 
+	private List<DetalleReserva> farmacos;
 
 	public Reserva() {
 		super();
@@ -71,92 +82,23 @@ public class Reserva implements Serializable{
 	public void setIdreserva(Integer idreserva) {
 		this.idreserva = idreserva;
 	}
-
-	public Calendar getFechaRecerva() {
-		return fechaRecerva;
-	}
-
-	public void setFechaRecerva(Calendar fechaRecerva) {
-		this.fechaRecerva = fechaRecerva;
-	}
-	
-	@Column(name = "creado_en")
-	private LocalDateTime creadoEn;
-
-	@Column(name = "creado_por")
-	private String creadoPor;
-
-	@Column(name = "modificado_en")
-	private LocalDateTime modificadoEn;
-
-	@Column(name = "modificado_por")
-	private String modificadoPor;
 	
 	@Override
 	public String toString() {
-		return this.getIdreserva()+ " " + this.getFechaRecerva();
-	}
-	
-	public String fechaRec() {
-		if(this.fechaRecerva == null) return "-";
-		SimpleDateFormat sdf = new SimpleDateFormat("dd/MMM/yyyy");		
-		return sdf.format(fechaRecerva.getTime());
-	}
-	
-	@OneToMany(mappedBy="reserva",fetch=FetchType.LAZY)
-	private List<DetalleReserva> detalleReserva;
-	
-	@JoinColumn(name="fk_cliente", referencedColumnName="pk_cliente")
-	@ManyToOne
-	private Cliente cliente;
-
-	public List<DetalleReserva> getDetalleReserva() {
-		return detalleReserva;
+		return this.getIdreserva()+ " ";
 	}
 
-	public void setDetalleReserva(List<DetalleReserva> detalleReserva) {
-		this.detalleReserva = detalleReserva;
-	}
-
-	public Cliente getCliente() {
-		return cliente;
-	}
-
-	public void setCliente(Cliente cliente) {
-		this.cliente = cliente;
-	}
-	
-	@JoinColumn(name="fk_usuario", referencedColumnName="pk_usuario")
-	@ManyToOne
-	private Usuario usuario;
-
-	public Usuario getUsuario() {
-		return usuario;
-	}
-
-	public void setUsuario(Usuario usuario) {
-		this.usuario = usuario;
-	}
-
-	public int getUsuarioid() {
-		return usuarioid;
-	}
-
-	public void setUsuarioid(int usuarioid) {
-		this.usuarioid = usuarioid;
-	}
-
-	public List<Medicamento> getMedicamentos() {
-		return medicamentos;
-	}
-
-	public void setMedicamentos(List<Medicamento> medicamentos) {
-		this.medicamentos = medicamentos;
-	}	
-	
 	@PrePersist
 	public void prePersist() {
+		String palabra = ""; 
+		int caracteres = 8; 
+		for (int i=0; i<caracteres; i++){ 
+			int codigoAscii = (int)Math.floor(Math.random()*(122 -97)+97); 
+			palabra = palabra + (char)codigoAscii; 
+		} 
 		creadoEn = LocalDateTime.now();
+		fechaRecerva = LocalDateTime.now();
+		codReserva = palabra;
 		SecurityContext context = SecurityContextHolder.getContext();
         creadoPor = context.getAuthentication().getName();
 	}
@@ -166,5 +108,71 @@ public class Reserva implements Serializable{
 		modificadoEn = LocalDateTime.now();
 		SecurityContext context = SecurityContextHolder.getContext();
         modificadoPor = context.getAuthentication().getName();
+	}
+
+	public LocalDateTime getFechaRecerva() {
+		return fechaRecerva;
+	}
+
+	public void setFechaRecerva(LocalDateTime fechaRecerva) {
+		this.fechaRecerva = fechaRecerva;
+	}
+
+	public String getCodReserva() {
+		return codReserva;
+	}
+
+	public void setCodReserva(String codReserva) {
+		this.codReserva = codReserva;
+	}
+
+	public String getTotalReserva() {
+		return totalReserva;
+	}
+
+	public void setTotalReserva(String totalReserva) {
+		this.totalReserva = totalReserva;
+	}
+
+	public LocalDateTime getCreadoEn() {
+		return creadoEn;
+	}
+
+	public void setCreadoEn(LocalDateTime creadoEn) {
+		this.creadoEn = creadoEn;
+	}
+
+	public String getCreadoPor() {
+		return creadoPor;
+	}
+
+	public void setCreadoPor(String creadoPor) {
+		this.creadoPor = creadoPor;
+	}
+
+	public LocalDateTime getModificadoEn() {
+		return modificadoEn;
+	}
+
+	public void setModificadoEn(LocalDateTime modificadoEn) {
+		this.modificadoEn = modificadoEn;
+	}
+
+	public String getModificadoPor() {
+		return modificadoPor;
+	}
+
+	public void setModificadoPor(String modificadoPor) {
+		this.modificadoPor = modificadoPor;
+	}
+
+	public List<DetalleReserva> getFarmacos() {
+		if(farmacos == null)
+			farmacos = new ArrayList<DetalleReserva>();
+		return farmacos;
+	}
+
+	public void setFarmacos(List<DetalleReserva> farmacos) {
+		this.farmacos = farmacos;
 	}
 }
