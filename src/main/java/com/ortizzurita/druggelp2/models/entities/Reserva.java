@@ -3,6 +3,7 @@ package com.ortizzurita.druggelp2.models.entities;
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
+import java.time.Month;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -44,6 +45,12 @@ public class Reserva implements Serializable{
 	
 	private LocalDateTime fechaRecerva;
 	
+	@Column(name = "mes")
+	private Integer mes;
+	
+	@Column(name = "mesletras")
+	private String mesletras;
+	
 	@Column(name = "cod_reserva")
 	private String codReserva;
 	
@@ -82,11 +89,29 @@ public class Reserva implements Serializable{
 	public void setIdreserva(Integer idreserva) {
 		this.idreserva = idreserva;
 	}
-	
+
+	public Integer getMes() {
+		return mes;
+	}
+
+	public void setMes(Integer mes) {
+		this.mes = mes;
+	}
+
+	public String getMesletras() {
+		return mesletras;
+	}
+
+	public void setMesletras(String mesletras) {
+		this.mesletras = mesletras;
+	}
+
 	@Override
 	public String toString() {
 		return this.getIdreserva()+ " ";
 	}
+
+	
 
 	@PrePersist
 	public void prePersist() {
@@ -98,6 +123,25 @@ public class Reserva implements Serializable{
 		} 
 		creadoEn = LocalDateTime.now();
 		fechaRecerva = LocalDateTime.now();
+		mes=fechaRecerva.getMonthValue();
+
+		switch(mes) {
+		case 1: mesletras="Enero"; break;
+		case 2: mesletras="Febrero"; break;
+		case 3: mesletras="Marzo"; break;
+		case 4: mesletras="Abril"; break;
+		case 5: mesletras="Mayo"; break;
+		case 6: mesletras="Junio"; break;
+		case 7: mesletras="Julio"; break;
+		case 8: mesletras="Agosto"; break;
+		case 9: mesletras="Septiembre"; break;
+		case 10: mesletras="Octubre"; break;
+		case 11: mesletras="Noviembre"; break;
+		case 12: mesletras="Diciembre"; break;
+		default:  ;break;
+		}
+		
+		
 		codReserva = palabra;
 		SecurityContext context = SecurityContextHolder.getContext();
         creadoPor = context.getAuthentication().getName();
@@ -175,4 +219,5 @@ public class Reserva implements Serializable{
 	public void setFarmacos(List<DetalleReserva> farmacos) {
 		this.farmacos = farmacos;
 	}
+
 }

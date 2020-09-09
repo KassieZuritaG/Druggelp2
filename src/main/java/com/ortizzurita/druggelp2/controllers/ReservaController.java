@@ -26,6 +26,8 @@ import com.ortizzurita.druggelp2.models.entities.DetalleReserva;
 import com.ortizzurita.druggelp2.models.entities.Farmaco;
 import com.ortizzurita.druggelp2.models.entities.Medicamento;
 import com.ortizzurita.druggelp2.models.entities.Reserva;
+import com.ortizzurita.druggelp2.models.reporting.RptFarmacoPrecio;
+import com.ortizzurita.druggelp2.models.reporting.RptFarmacoReserva;
 import com.ortizzurita.druggelp2.models.reporting.RptReservaUsuario;
 import com.ortizzurita.druggelp2.models.services.IFarmacoService;
 import com.ortizzurita.druggelp2.models.services.IReservaService;
@@ -137,6 +139,25 @@ public class ReservaController {
 		model.addAttribute("title","Listado de fármacos");
 		return "detallereserva/list";
 	}
+	
+	
+	///////////////////////////////////////////
+	@GetMapping(value = "/rptFarmacoReserva")
+	public String rptFarmacoReserva(Model model) {
+		return "reserva/rptFarmacoReserva";				
+	}
+	
+	
+	@GetMapping(value = "/dataRptFarmacoReserva", produces="application/json")
+	public @ResponseBody List<RptFarmacoReserva> dataRptFarmacoReserva(Model model) {				
+		try {
+			return this.srvReserva.rptFarmacoReserva();
+		} catch (Exception ex) {
+			System.out.println(ex.getMessage());
+			return null;
+		}		
+	}
+	
 	
 	//comentar
 	/*@GetMapping(value = "/rptReservaUsuario")

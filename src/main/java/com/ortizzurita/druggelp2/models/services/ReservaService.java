@@ -1,5 +1,6 @@
 package com.ortizzurita.druggelp2.models.services;
 
+import java.math.BigInteger;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -15,6 +16,8 @@ import com.ortizzurita.druggelp2.models.dao.IDetalleReserva;
 import com.ortizzurita.druggelp2.models.dao.IMedicamento;
 import com.ortizzurita.druggelp2.models.dao.IReserva;
 import com.ortizzurita.druggelp2.models.entities.Reserva;
+import com.ortizzurita.druggelp2.models.reporting.RptFarmacoPrecio;
+import com.ortizzurita.druggelp2.models.reporting.RptFarmacoReserva;
 import com.ortizzurita.druggelp2.models.reporting.RptReservaUsuario;
 import com.ortizzurita.druggelp2.models.entities.DetalleReserva;
 import com.ortizzurita.druggelp2.models.entities.Medicamento;
@@ -62,6 +65,16 @@ public class ReservaService implements IReservaService{
 	@Transactional
 	public List<Reserva> findAll() {
 		return (List<Reserva>) dao.findAll();
+	}
+
+	@Override
+	public List<RptFarmacoReserva> rptFarmacoReserva() {
+		StoredProcedureQuery query = em.createStoredProcedureQuery("reservas_por_meses");
+		query.execute();
+		List<Object[]> datos = query.getResultList();		
+		return datos.stream()
+				.map(r -> new RptFarmacoReserva((String)r[0], (String)r[1], (BigInteger)r[2]))
+				.collect(Collectors.toList());	
 	}
 
 	//comentar esto
