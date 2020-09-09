@@ -192,13 +192,13 @@ public class Farmaco implements Serializable{
 		this.modificadoPor = modificadoPor;
 	}
 
-	public List<DetalleReserva> getDetalleReserva() {
+	/*public List<DetalleReserva> getDetalleReserva() {
 		return detalleReserva;
 	}
 
 	public void setDetalleReserva(List<DetalleReserva> detalleReserva) {
 		this.detalleReserva = detalleReserva;
-	}
+	}*/
 
 	@Override
 	public String toString() {
@@ -241,9 +241,9 @@ public class Farmaco implements Serializable{
 		this.farmacia = farmacia;
 	}
 	*/
-	@JsonIgnore
+	/*@JsonIgnore
 	@OneToMany(mappedBy="farmaco",fetch=FetchType.LAZY)
-	private List<DetalleReserva> detalleReserva;
+	private List<DetalleReserva> detalleReserva;*/
 	
 	Calendar c=new GregorianCalendar();
 	int dia=c.get(Calendar.DAY_OF_MONTH);

@@ -39,5 +39,10 @@ public class ArticuloService implements IArticuloService{
 		return (List<Articulo>) dao.findAll();
 	}
 
+	@Override
+	public List<Articulo> findByNombre(String nombre) {
+		return dao.findByNombreStartingWith(nombre);
+	}
+
 	
 }

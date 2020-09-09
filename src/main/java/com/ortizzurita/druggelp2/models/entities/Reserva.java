@@ -3,6 +3,7 @@ package com.ortizzurita.druggelp2.models.entities;
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
@@ -103,20 +104,21 @@ public class Reserva implements Serializable{
 		return sdf.format(fechaRecerva.getTime());
 	}
 	
-	@OneToMany(mappedBy="reserva",fetch=FetchType.LAZY)
-	private List<DetalleReserva> detalleReserva;
 	
 	@JoinColumn(name="fk_cliente", referencedColumnName="pk_cliente")
 	@ManyToOne
 	private Cliente cliente;
 
+	/*@OneToMany(mappedBy="reserva",fetch=FetchType.LAZY)
+	private List<DetalleReserva> detalleReserva;
+	
 	public List<DetalleReserva> getDetalleReserva() {
 		return detalleReserva;
 	}
 
 	public void setDetalleReserva(List<DetalleReserva> detalleReserva) {
 		this.detalleReserva = detalleReserva;
-	}
+	}*/
 
 	public Cliente getCliente() {
 		return cliente;
@@ -167,4 +169,23 @@ public class Reserva implements Serializable{
 		SecurityContext context = SecurityContextHolder.getContext();
         modificadoPor = context.getAuthentication().getName();
 	}
+	
+	/////////////////////MAESTRO DETALLE RESERVA/////////////////////////
+	
+	
+	@JsonIgnore
+	@OneToMany(mappedBy="reserva", fetch=FetchType.LAZY) 
+	private List<DetalleReserva> detallereservas;
+
+	public List<DetalleReserva> getDetallereservas() {
+		if(detallereservas == null)
+			detallereservas = new ArrayList<DetalleReserva>();
+		return detallereservas;
+	}
+
+	public void setDetallereservas(List<DetalleReserva> detallereservas) {
+		this.detallereservas = detallereservas;
+	}
+	
+	
 }

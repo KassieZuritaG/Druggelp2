@@ -10,4 +10,5 @@ public interface IArticuloService {
 	public Articulo findById(Integer id);
 	public void delete(Integer id);
 	public List<Articulo>findAll();
+	public List<Articulo> findByNombre(String nombre);
 }

@@ -2,21 +2,23 @@ package com.ortizzurita.druggelp2.controllers;
 
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
+/*import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import com.ortizzurita.druggelp2.models.entities.Articulo;
+import com.ortizzurita.druggelp2.models.services.IDetalleReservaService;*/
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.SessionAttributes;
 
 import com.ortizzurita.druggelp2.models.entities.DetalleReserva;
-import com.ortizzurita.druggelp2.models.services.IDetalleReservaService;
+
 
 
 @Controller
@@ -25,7 +27,15 @@ import com.ortizzurita.druggelp2.models.services.IDetalleReservaService;
 
 public class DetalleReservaController {
 	
-	@Autowired 
+	
+	@GetMapping(value="/create") 
+	public String create(Model model) {
+		DetalleReserva detallereserva = new DetalleReserva();
+		model.addAttribute("detallereserva", detallereserva);
+		return "detallereserva/form"; 
+	}
+	
+	/*@Autowired 
 	private IDetalleReservaService srvDetalleReserva;
 	
 	@GetMapping(value="/create") 
@@ -92,5 +102,5 @@ public class DetalleReservaController {
 			flash.addFlashAttribute("error", ex.getMessage());
 		}				
 		return "redirect:/detallereserva/list";
-	}
+	}*/
 }

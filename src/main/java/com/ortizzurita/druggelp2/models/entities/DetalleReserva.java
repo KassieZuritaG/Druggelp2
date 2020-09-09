@@ -15,6 +15,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -104,20 +105,22 @@ public class DetalleReserva implements Serializable{
 		return sdf.format(fechaRecerva.getTime());
 	}
 	
-	@JoinColumn(name="fk_farmaco", referencedColumnName="pk_farmaco")
+	
+	///////////////////MAESTRO DETALLE RESERVA/////////////////////////
+	@JoinColumn(name="fk_articulo", referencedColumnName="pk_articulo")
 	@ManyToOne
-	private  Farmaco farmaco;
+	private Articulo articulo;
 	
 	@JoinColumn(name="fk_reserva", referencedColumnName="pk_reserva")
 	@ManyToOne
-	private  Reserva reserva;
+	private Reserva reserva;
 
-	public Farmaco getFarmaco() {
-		return farmaco;
+	public Articulo getArticulo() {
+		return articulo;
 	}
 
-	public void setFarmaco(Farmaco farmaco) {
-		this.farmaco = farmaco;
+	public void setArticulo(Articulo articulo) {
+		this.articulo = articulo;
 	}
 
 	public Reserva getReserva() {
@@ -127,6 +130,59 @@ public class DetalleReserva implements Serializable{
 	public void setReserva(Reserva reserva) {
 		this.reserva = reserva;
 	}
+	
+	//////////////////MAESTRO DETALLE/////////////////////////////////
+	
+	
+/**** TRANSIENT ***/
+	
+	@Transient
+	private int reservaid;
+	
+	@Transient
+	private int articuloid;
+
+	public int getReservaid() {
+		return reservaid;
+	}
+
+	public void setReservaid(int reservaid) {
+		this.reservaid = reservaid;
+	}
+
+	public int getArticuloid() {
+		return articuloid;
+	}
+
+	public void setArticuloid(int articuloid) {
+		this.articuloid = articuloid;
+	}
+	
+	
+	
+	/*@JoinColumn(name="fk_farmaco", referencedColumnName="pk_farmaco")
+	@ManyToOne
+	private  Farmaco farmaco;*/
+	
+	/*@JoinColumn(name="fk_reserva", referencedColumnName="pk_reserva")
+	@ManyToOne
+	private  Reserva reserva;*/
+
+	/*public Farmaco getFarmaco() {
+		return farmaco;
+	}
+
+	public void setFarmaco(Farmaco farmaco) {
+		this.farmaco = farmaco;
+	}*/
+
+	/*public Reserva getReserva() {
+		return reserva;
+	}
+
+	public void setReserva(Reserva reserva) {
+		this.reserva = reserva;
+	}*/
 	
 	
 }

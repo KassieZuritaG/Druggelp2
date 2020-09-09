@@ -21,12 +21,17 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.ortizzurita.druggelp2.models.entities.Farmaco;
+import com.ortizzurita.druggelp2.models.entities.Articulo;
+import com.ortizzurita.druggelp2.models.entities.DetalleReserva;
+import com.ortizzurita.druggelp2.models.services.IReservaService;
 import com.ortizzurita.druggelp2.models.entities.Medicamento;
 import com.ortizzurita.druggelp2.models.entities.Reserva;
-import com.ortizzurita.druggelp2.models.reporting.RptReservaUsuario;
+import com.ortizzurita.druggelp2.models.services.IArticuloService;
+/*
 import com.ortizzurita.druggelp2.models.services.IFarmacoService;
-import com.ortizzurita.druggelp2.models.services.IReservaService;
+import com.ortizzurita.druggelp2.models.reporting.RptReservaUsuario;
+import com.ortizzurita.druggelp2.models.entities.Farmaco;*/
+
 
 @Controller
 @SessionAttributes("Reserva")
@@ -36,8 +41,11 @@ public class ReservaController {
 	@Autowired
 	private IReservaService srvReserva;
 	
+	/*@Autowired
+	private IFarmacoService srvFarmaco;*/
+	
 	@Autowired
-	private IFarmacoService srvFarmaco;
+	private IArticuloService srvArticulo;
 	
 	@GetMapping(value="/create")
 	public String create(Model model) {
@@ -86,7 +94,24 @@ public class ReservaController {
 		}		
 	}
 	
+//////////////////////MAESTRO DETALLE/////////////////////
+	
 	@PostMapping(value="/add", produces="application/json")
+	public @ResponseBody Object add(@RequestBody @Valid DetalleReserva detallereserva,
+			BindingResult result, Model model, HttpSession session){
+		try {
+			Articulo articulo = this.srvArticulo.findById(detallereserva.getArticuloid());
+			detallereserva.setArticulo(articulo);
+			Reserva reserva = (Reserva) session.getAttribute("Reserva");
+			reserva.getDetallereservas().add(detallereserva);
+			return detallereserva;
+		}
+		catch(Exception ex){
+			return ex;
+		}
+	}
+	
+	/*@PostMapping(value="/add", produces="application/json")
 	public @ResponseBody Object add(@RequestBody @Valid Medicamento medicamento,
 			BindingResult result, Model model, HttpSession session){
 		try {
@@ -99,14 +124,14 @@ public class ReservaController {
 		catch(Exception ex){
 			return ex;
 		}
-	}
-	
+	}*/
+	//////////////////////MAESTRO DETALLE/////////////////////
 	@GetMapping(value="/pills")
 	public String pills(Model model, HttpSession session) {
 		Reserva reserva = (Reserva) session.getAttribute("Reserva");
-		model.addAttribute("pills", reserva.getMedicamentos());
-		model.addAttribute("title","Listado de fármacos");
-		return "medicamentos/list";
+		model.addAttribute("pills", reserva.getDetallereservas());
+		model.addAttribute("title","Listado de articulos");
+		return "detallereserva/list";
 	}
 	
 	//comentar
