@@ -19,7 +19,8 @@
 		<tbody>
 			<tr th:each="a : ${articulos}">
 				<!--<td th:text="${a.idarticulo}"></td>-->
-				<td th:text="${a.farmaco.imagen}"></td>
+				<td><img width="100px" height="100px" th:src="@{/photos/} + ${a.farmaco.imagen}"/></td>
+				<!--  <td th:text="${a.farmaco.imagen}"></td>-->
 				<td th:text="${a.farmaco.nombre}"></td>
 				<td th:text="${a.farmaco.costo}"></td>
 				<td th:text="${a.cantidad}"></td>
