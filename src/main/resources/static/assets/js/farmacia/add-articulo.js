@@ -66,7 +66,7 @@ function save(){
 	var requestBody = JSON.stringify(dataForm);
 	console.log(requestBody);			
 	$.ajax({
-		url : developURL + "farmacia/add",
+		url : "farmacia/add",
 		method : 'POST',
 		contentType : "application/json",
 		headers: {"X-CSRF-TOKEN": $("input[name='_csrf']").val()},		
