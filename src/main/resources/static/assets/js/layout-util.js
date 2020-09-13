@@ -1,4 +1,4 @@
-var developURL = "http://localhost:8080/";
+var developURL = "https://druggelpfinalv5demostracion.herokuapp.com/";
 
 function objectifyForm(formArray) {
 	var returnArray = {};
@@ -18,7 +18,7 @@ function getRandomColor() {
 	}
 
 
-var ctx = document.getElementById('myChart').getContext('2d');
+/*var ctx = document.getElementById('myChart').getContext('2d');
 var chart = new Chart(ctx, {
     // The type of chart we want to create
     type: 'line',
@@ -36,4 +36,4 @@ var chart = new Chart(ctx, {
 
     // Configuration options go here
     options: {}
-});
+});*/
