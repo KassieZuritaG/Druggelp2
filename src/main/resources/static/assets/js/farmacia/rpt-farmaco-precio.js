@@ -79,6 +79,10 @@ function reportArticulosPrecio(){
 						title: {
 							display: true,
 							text: 'Precios de Articulos por Farmacias'
+						},
+						scales:{
+							yAxes:[{ticks:{beginAtZero:true}}]
+							
 						}
 					}
 				});

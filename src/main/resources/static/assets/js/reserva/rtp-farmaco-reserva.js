@@ -79,6 +79,10 @@ function reportArticulosMeses(){
 						title: {
 							display: true,
 							text: 'Reserva de Articulos por Meses'
+						},
+						scales:{
+							yAxes:[{ticks:{beginAtZero:true}}]
+							
 						}
 					}
 				});
