@@ -79,6 +79,10 @@ function reportArticulos(){
 						title: {
 							display: true,
 							text: 'Articulos por Farmacias'
+						},
+						scales:{
+							yAxes:[{ticks:{beginAtZero:true}}]
+							
 						}
 					}
 				});
